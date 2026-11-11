@@ -1,5 +1,7 @@
 # Bounds for the kissing number in dimension 5: a Lean 4 formalisation of 40 ≤ κ(5) ≤ 45
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24145123.svg)](https://doi.org/10.5281/zenodo.24145123)
+
 Status: **Lean 4 formalisation, not peer reviewed.** Prepared 2026-11-11. **Produced by AI models** under the direction
 of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 
@@ -10,9 +12,11 @@ of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 > is **not** new; what this repository adds is a machine-checked proof of a bound of this kind. We do not regard
 > this formal argument as settled until it has been checked independently.
 > Independent verification and human-readable expositions are welcome, and credit for a human-readable proof belongs
-> to whoever writes one. Questions, checks and corrections:
+> to whoever writes one. To refer to the computational result, please cite the archived repository
+> ([10.5281/zenodo.24145123](https://doi.org/10.5281/zenodo.24145123)). Questions, checks and corrections:
 > [GitHub issues](https://github.com/alejandrozarco/kissing-number-5/issues).
 
+Archived on Zenodo: [10.5281/zenodo.24145123](https://doi.org/10.5281/zenodo.24145123) (all versions).
 Cite with `CITATION.cff`.
 
 The kissing number $`\kappa(d)`$ is the largest number of non-overlapping unit balls in $`\mathbb{R}^d`$ that touch a
