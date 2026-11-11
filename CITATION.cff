@@ -11,7 +11,9 @@ abstract: >-
   A Lean 4 proof, checked by the Lean kernel, that the kissing number of five-dimensional space is at least 40 and at
   most 45: the 40 roots of D5 for the lower bound, and an exact Bachoc-Vallentin three-point certificate for 46
   points, with a Lean proof of three-point positivity on the sphere S^4, for the upper bound. Both bounds are known;
-  the best published upper bound is 44. Not peer reviewed.
+  the best published upper bound is 44. Not peer reviewed. AI-produced by Claude Opus 5.5 (Anthropic) under the
+  direction of the repository owner and reviewed only by AI models (see AI_DISCLOSURE.md): a machine-checked
+  formalisation of known bounds that no human has yet reviewed.
 keywords:
   - kissing number
   - D5 root system
