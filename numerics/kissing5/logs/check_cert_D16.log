@@ -1,0 +1,8 @@
+degree bound from the data: 16 (file says 16, not used)
+n = 46, e = 1/32 > 0, F-block sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS blocks [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (cut); their product; detG (GramOK). Names used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+all blocks symmetric and positive definite (Sylvester)
+identity holds exactly at all 4913 grid points = 17^3, so it holds identically
+float sanity: max of sum_k <F_k, Rk> over 3000 random region points = -0.000111007 <= -e/C(n,2) = -3.01932e-05
+CERTIFICATE OK
+peak_rss_kB 37584

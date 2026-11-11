@@ -1,0 +1,5 @@
+pid 45691 2026-11-06 14:32:26 args: fixn 12 46
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "fixn_D12_n46", "mode": "fixn", "D": 12, "n": 46.0, "delsarte": null, "status": "optimal_inaccurate", "e": -0.022949794810449575, "e_over_C": -2.2173714792704904e-05, "time": 413.7, "sizes": [7, 6, 5, 4, 3, 2, 1]}
+rc 0 peak_rss_kB 531200 2026-11-06 14:39:27

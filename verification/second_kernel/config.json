@@ -1,0 +1,4 @@
+{ "export_file_path": "<out>/export.ndjson", "use_stdin": false,
+  "permitted_axioms": ["propext","Quot.sound","Classical.choice"], "unpermitted_axiom_hard_error": true,
+  "nat_extension": true, "string_extension": true,
+  "pp_declars": ["Kissing5.exists_isKissing_encard_eq_forty","Kissing5.encard_le_fortyFive_of_isKissing","Kissing5.kissingNumber_five_bounds","Kissing5.isKissing_antipodal","Kissing5.not_isKissing_close","Kissing5.not_isKissing_far"], "pp_to_stdout": true, "print_axioms": true, "print_success_message": true }

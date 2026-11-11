@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this material, please cite it as below. Not peer reviewed. Produced by AI models under the direction of the repository owner (see AI_DISCLOSURE.md)."
+title: "Bounds for the kissing number in dimension 5, 40 <= kappa(5) <= 45: a Lean 4 formalisation via a three-point certificate"
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/alejandrozarco/kissing-number-5"
+authors:
+  - name: alejandrozarco
+abstract: >-
+  A Lean 4 proof, checked by the Lean kernel, that the kissing number of five-dimensional space is at least 40 and at
+  most 45: the 40 roots of D5 for the lower bound, and an exact Bachoc-Vallentin three-point certificate for 46
+  points, with a Lean proof of three-point positivity on the sphere S^4, for the upper bound. Both bounds are known;
+  the best published upper bound is 44. Not peer reviewed.
+keywords:
+  - kissing number
+  - D5 root system
+  - semidefinite programming
+  - three-point bound
+  - computer-assisted proof
+  - Lean 4

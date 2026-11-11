@@ -1,0 +1,5 @@
+pid 24453 2026-11-06 17:32:36 args: fixn 16 46
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "fixn_D16_n46_sym_mlin2", "mode": "fixn", "D": 16, "n": 46.0, "delsarte": null, "status": "optimal_inaccurate", "e": 0.18723336047200356, "e_over_C": 0.00018090179755749137, "time": 93.0, "sizes": [9, 8, 7, 6, 5, 4, 3, 2, 1], "sym_blocks": {"G1": [41, 16, 54], "Gdet": [23, 7, 27], "orbit": [70, 50]}, "mults": "lin2"}
+rc 0 peak_rss_kB 957840 2026-11-06 17:34:25

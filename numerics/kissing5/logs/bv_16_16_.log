@@ -1,0 +1,3 @@
+pid 40237 2026-11-06 14:23:26 args: bv 16 16
+{"tag": "bv_D16_L16_lp", "mode": "bv", "D": 16, "D2": 16, "three_point": false, "status": "optimal", "bound": 46.337572564365004, "time": 0.0, "sizes": []}
+rc 0 peak_rss_kB 112 2026-11-06 14:23:46

@@ -1,0 +1,21 @@
+pid 45605 2026-11-06 14:32:18 args: bv 14
+rc 143 peak_rss_kB 989168 2026-11-06 16:39:55
+pid 9340 2026-11-06 16:56:38 args: bv 14
+WATCHDOG: RSS 5197456 kB > 1500000 kB, stopping pid 9340
+rc 143 peak_rss_kB 5197456 2026-11-06 16:56:59
+pid 13883 2026-11-06 17:06:24 args: bv 14
+{"tag": "bv_D14_L14_sym", "mode": "bv", "D": 14, "D2": 14, "three_point": true, "status": "optimal", "bound": 46.1294915189175, "time": 43.2, "sizes": [8, 7, 6, 5, 4, 3, 2, 1], "sym_blocks": {"G1": [31, 11, 39], "Gdet": [16, 4, 18], "orbit": [50, 34]}}
+rc 0 peak_rss_kB 429984 2026-11-06 17:07:19
+pid 15141 2026-11-06 17:09:34 args: bv 14
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "bv_D14_L14_scs_sym", "mode": "bv", "D": 14, "D2": 14, "three_point": true, "status": "optimal_inaccurate", "bound": 46.12510472966524, "time": 1058.4, "sizes": [8, 7, 6, 5, 4, 3, 2, 1], "solver": "SCS", "sym_blocks": {"G1": [31, 11, 39], "Gdet": [16, 4, 18], "orbit": [50, 34]}}
+rc 0 peak_rss_kB 197280 2026-11-06 17:27:21
+pid 22374 2026-11-06 17:27:36 args: bv 14
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "bv_D14_L14_sym_mlin2", "mode": "bv", "D": 14, "D2": 14, "three_point": true, "status": "optimal_inaccurate", "bound": 46.1209277562502, "time": 11.0, "sizes": [8, 7, 6, 5, 4, 3, 2, 1], "sym_blocks": {"G1": [31, 11, 39], "Gdet": [16, 4, 18], "orbit": [50, 34]}, "mults": "lin2"}
+rc 0 peak_rss_kB 259440 2026-11-06 17:27:54
+pid 22485 2026-11-06 17:27:54 args: bv 14
+WATCHDOG: RSS 624640 kB > 600000 kB, stopping pid 22485
+rc 143 peak_rss_kB 624640 2026-11-06 17:28:02

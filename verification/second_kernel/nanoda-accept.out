@@ -1,0 +1,48 @@
+theorem Kissing5.exists_isKissing_encard_eq_forty :
+  Exists
+    (fun (S : Set (Kissing5.E (OfNat.ofNat 5))) => And (Kissing5.IsKissing S) (Eq (Set.encard S) (OfNat.ofNat 40))) :=
+  _
+
+theorem Kissing5.encard_le_fortyFive_of_isKissing (S : Set (Kissing5.E (OfNat.ofNat 5))) (hS : Kissing5.IsKissing S) :
+  LE.le (Set.encard S) (OfNat.ofNat 45) :=
+  _
+
+theorem Kissing5.kissingNumber_five_bounds :
+  And (LE.le (OfNat.ofNat 40) (Kissing5.kissingNumber (OfNat.ofNat 5)))
+    (LE.le (Kissing5.kissingNumber (OfNat.ofNat 5)) (OfNat.ofNat 45)) :=
+  _
+
+theorem Kissing5.isKissing_antipodal :
+  Kissing5.IsKissing
+    (Insert.insert (EuclideanSpace.single (OfNat.ofNat 0) (OfNat.ofNat 2))
+      (Singleton.singleton (EuclideanSpace.single (OfNat.ofNat 0) (Neg.neg (OfNat.ofNat 2))))) :=
+  _
+
+theorem Kissing5.not_isKissing_close :
+  Not
+    (Kissing5.IsKissing
+      (Insert.insert
+        (WithLp.toLp (OfNat.ofNat 2)
+          (Matrix.vecCons (OfNat.ofNat 2)
+            (Matrix.vecCons (OfNat.ofNat 0)
+              (Matrix.vecCons (OfNat.ofNat 0)
+                (Matrix.vecCons (OfNat.ofNat 0) (Matrix.vecCons (OfNat.ofNat 0) Matrix.vecEmpty))))))
+        (Singleton.singleton
+          (WithLp.toLp (OfNat.ofNat 2)
+            (Matrix.vecCons (Real.sqrt (OfNat.ofNat 3))
+              (Matrix.vecCons (OfNat.ofNat 1)
+                (Matrix.vecCons (OfNat.ofNat 0)
+                  (Matrix.vecCons (OfNat.ofNat 0) (Matrix.vecCons (OfNat.ofNat 0) Matrix.vecEmpty))))))))) :=
+  _
+
+theorem Kissing5.not_isKissing_far :
+  Not (Kissing5.IsKissing (Singleton.singleton (EuclideanSpace.single (OfNat.ofNat 0) (OfNat.ofNat 3)))) :=
+  _
+
+axiom propext {a b : Prop} : Iff a b → Eq a b
+
+axiom Quot.sound.{u} {α : Sort u} {r : α → α → Prop} {a b : α} : r a b → Eq (Quot.mk r a) (Quot.mk r b)
+
+axiom Classical.choice.{u} {α : Sort u} : Nonempty α → α
+
+Checked 37338 declarations with no errors

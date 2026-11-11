@@ -1,0 +1,8 @@
+pid 42763 2026-11-06 14:28:26 args: fixn 12 45
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "fixn_D12_n45", "mode": "fixn", "D": 12, "n": 45.0, "delsarte": null, "status": "optimal_inaccurate", "e": -0.03556289144001433, "e_over_C": -3.592211256567104e-05, "time": 209.8, "sizes": [7, 6, 5, 4, 3, 2, 1]}
+rc 0 peak_rss_kB 1123904 2026-11-06 14:32:06
+pid 13416 2026-11-06 17:05:17 args: fixn 12 45
+WATCHDOG: RSS 301024 kB > 300000 kB, stopping pid 13416
+rc 143 peak_rss_kB 301024 2026-11-06 17:05:25

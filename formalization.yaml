@@ -1,0 +1,156 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+# formalization.yaml (v0.4): repo-root metadata for formalization projects.
+
+version: "v0.4"
+
+project:
+  name: "kissing-number-5: bounds for the kissing number in dimension 5"
+  description: >-
+    An AI-produced warrant, meaning a machine-checked Lean proof that no human has digested, of the known bounds
+    40 <= kissing number of R^5 <= 45. Lower bound: the 40 roots of D5, with integer coordinates scaled by sqrt 2.
+    Upper bound: an exact Bachoc-Vallentin three-point semidefinite certificate (total degree 16) for 46 unit vectors
+    with pairwise inner products at most 1/2, checked by `decide +kernel`, with a Lean proof of three-point positivity
+    on S^4 for degrees up to 8. The best published upper bound (44, Mittelmann and Vallentin 2010) is stronger. The
+    repository also contains the certificate as JSON with an independent exact checker in Python.
+  authors:
+    - "alejandrozarco (repository owner; directed the work)"
+    - "Claude Opus 5.5 (Anthropic), AI model that produced the certificate and Lean code"
+  responsible_maintainers:
+    - "alejandrozarco"
+  license: "Apache-2.0 (LICENSE); not covering the regenerated upstream code or the upstream material in adapted declarations (README, Licence)"
+
+sources:
+  - title: "New upper bounds for kissing numbers from semidefinite programming"
+    authors: ["C. Bachoc", "F. Vallentin"]
+    id: "J. Amer. Math. Soc. 21 (2008), 909-924"
+    type: "article"
+    relationship: "background"
+    note: "The three-point method and the bound kappa(5) <= 45. Its positivity theorem is formalised here for S^4 and degrees up to 8."
+    author_endorsement: "not-contacted"
+  - title: "High-accuracy semidefinite programming bounds for kissing numbers"
+    authors: ["H. D. Mittelmann", "F. Vallentin"]
+    id: "Experiment. Math. 19 (2010), 175-179"
+    type: "article"
+    relationship: "other"
+    note: "The best published upper bound kappa(5) <= 44 (not formalised here)."
+    author_endorsement: "not-contacted"
+  - title: "Fixed-n three-point certificate for 46 points in dimension 5 (this repository)"
+    type: "original-proof"
+    relationship: "formalizes"
+    note: "AI-produced; numerics/kissing5/ and lean/Kissing5/. Not refereed."
+    author_endorsement: "n/a"
+
+related_formalizations:
+  - id: "https://github.com/huwngtran/thomson-n7-lean"
+    revision: "25f2fa53119273458cfbb3c4230904bffdd61e53"
+    relationship: "builds-on"
+    note: >-
+      Three-point machinery. Unchanged declarations are regenerated from it by lean/regen.sh and are not stored here.
+      Adapted declarations are stored with per-declaration attribution.
+  - id: "https://github.com/alejandrozarco/kissing-number-3"
+    relationship: "builds-on"
+    note: "The dimension-3 development (lean/Kissing/), whose certificate format and checker are reused."
+  - id: "https://github.com/alejandrozarco/kissing-number-8"
+    relationship: "builds-on"
+    note: "The Gegenbauer kernels and the induction step for their positive semidefiniteness (lean/Kissing8/Kernel.lean)."
+  - id: "https://github.com/alejandrozarco/kissing-number-4"
+    relationship: "builds-on"
+    note: "The dimension-4 development, whose structure the dimension-5 files follow."
+  - id: "https://github.com/alejandrozarco/thomson-n7-log"
+    relationship: "builds-on"
+    note: "Splitter, upstream-text scanner, certificate emitter utilities, the polynomial toolkit and the second-kernel script."
+
+classification:
+  arxiv: ["math.MG", "math.OC"]
+  msc2020: ["52C17", "05B40", "90C22", "03B35"]
+
+status:
+  scope: "40 <= kappa(5) <= 45, with arrangements of any cardinality (sizes in ENat). The exact value is open."
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "Kissing5.kissingNumber_five_bounds"
+      file: "lean/Kissing5/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "lean/comparator5.json"
+      literature_dependencies: []
+    - declaration: "Kissing5.encard_le_fortyFive_of_isKissing"
+      file: "lean/Kissing5/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "lean/comparator5.json"
+      literature_dependencies: []
+    - declaration: "Kissing5.exists_isKissing_encard_eq_forty"
+      file: "lean/Kissing5/Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "lean/comparator5.json"
+      literature_dependencies: []
+  notes: >-
+    Statement file: lean/Kissing5/Statement.lean (sorry by design). The package also contains the dimension-3, -4 and
+    -8 developments, which share its Lake configuration; their records are in their own repositories. Comparator,
+    axioms, a nanoda second-kernel check and a clean build of a fresh copy of the package are recorded in
+    verification/. No `native_decide`.
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: >-
+        Claude Opus 5.5 with terminal access. Python (cvxpy/Clarabel, numpy, scipy, python-flint, sympy) for SDP
+        solving, exact rounding, checking and generating the addition identities. Lean 4 v4.34.1 + Mathlib, modules
+        built one at a time on a Linux workstation.
+      cost:
+        wall_time: "about 2 days of work (2026-11-06 to 2026-11-07), release checks and documents to 2026-11-11"
+        spend_usd: "subscription-based usage"
+        hardware: "Apple-silicon laptop for the SDP; Linux workstation (6 cores, 19 GB RAM) for Lean builds"
+      prompting_notes: >-
+        The owner set the goal, approved the statement file and decided on scope and publication. Plans and results
+        are recorded in a development journal (not public).
+    - method: "agent"
+      models: ["claude-fable-5-2"]
+      framework: "Claude Code"
+      tool_setup: "A separate read-only instance."
+      prompting_notes: "Feasibility and literature review of the numerical plan before the work; see AI_DISCLOSURE.md."
+    - method: "agent"
+      models: ["claude-opus-5-5"]
+      framework: "Claude Code"
+      tool_setup: "A separate read-only reviewer instance without the working context."
+      prompting_notes: "Adversarial review of statement fidelity, the proof chain, the certificate data and the documentation; see AI_DISCLOSURE.md."
+  spend_usd: "subscription-based usage (not separately metered)"
+  notes: "See AI_DISCLOSURE.md."
+
+fidelity:
+  divergences: >-
+    - Only bounds are formalised; the exact value of kappa(5) is open.
+    - The upper bound 45 is weaker than the best published bound 44.
+    - Three-point positivity on S^4 is proved for the degrees used (up to 8), not in general.
+
+review:
+  status: "agent-reviewed"
+  reviewers:
+    - "Claude Opus 5.5 (separate read-only reviewer instance)"
+  notes: "No human expert has checked the formalisation. Comments and checks are welcome via GitHub issues."
+
+alignment:
+  namespace: "Kissing5"
+  statements:
+    - source: "40 <= kappa(5) <= 45 (lower bound: D5 root system; upper bound: Bachoc-Vallentin 2008)"
+      lean: "Kissing5.kissingNumber_five_bounds"
+      module: "lean/Kissing5/Solution.lean (statement: lean/Kissing5/Statement.lean)"
+      status: "proved"
+    - source: "every kissing arrangement in R^5 has at most 45 balls"
+      lean: "Kissing5.encard_le_fortyFive_of_isKissing"
+      module: "lean/Kissing5/Solution.lean (statement: lean/Kissing5/Statement.lean)"
+      status: "proved"
+    - source: "40 balls can touch a central ball in R^5"
+      lean: "Kissing5.exists_isKissing_encard_eq_forty"
+      module: "lean/Kissing5/Solution.lean (statement: lean/Kissing5/Statement.lean)"
+      status: "proved"
+
+acknowledgements: >-
+  Built on huwngtran/thomson-n7-lean (three-point machinery) and on kissing-number-3, kissing-number-4 and
+  kissing-number-8. Uses Mathlib, Lean 4, and Python numerical libraries.

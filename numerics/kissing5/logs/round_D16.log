@@ -1,0 +1,26 @@
+[   0.1s] sol/fixn_D16_n46_mu0.5_sym_mlin2.npz: D=16 n=46 mu=1.25e-06 float e=0.0936167 -> exact e=1/32, KBITS=28
+[   0.2s] exact target P: 449 monomials, degree 16
+[   4.8s] expanded block      1: size 165, float min eigenvalue 1.25e-06
+[   5.2s] expanded block  1/2-u: size 120, float min eigenvalue 1.25e-06
+[   5.4s] expanded block  1/2-v: size 120, float min eigenvalue 1.25e-06
+[   5.6s] expanded block  1/2-t: size 120, float min eigenvalue 1.25e-06
+[   5.8s] expanded block   detG: size 84, float min eigenvalue 1.25e-06
+[   5.9s] rounding residual: 858 monomials, max |non-constant coef| 8.27e-05; constant 6.03371e-05 (expected about the dropped e/C(n,2) = 6.02577e-05)
+[   5.9s] WARNING: residual not small against mu; positive definiteness may fail
+[   6.6s] identity P == sum_r g_r z^T B_r z holds exactly
+[   6.6s]                     F0: size   9, positive definite, min pivot 6.52e-06
+[   6.6s]                     F1: size   8, positive definite, min pivot 6.77e-06
+[   6.6s]                     F2: size   7, positive definite, min pivot 5.07e-06
+[   6.6s]                     F3: size   6, positive definite, min pivot 4.78e-06
+[   6.6s]                     F4: size   5, positive definite, min pivot 1.8e-06
+[   6.6s]                     F5: size   4, positive definite, min pivot 0.000205
+[   6.6s]                     F6: size   3, positive definite, min pivot 9.14e-06
+[   6.6s]                     F7: size   2, positive definite, min pivot 2.51e-05
+[   6.6s]                     F8: size   1, positive definite, min pivot 1.26e-06
+Traceback (most recent call last):
+  File "numerics/kissing5/round_k5.py", line 164, in <module>
+    main(a[1], a[2], int(a[3]) if len(a) > 3 else 28, Fr(a[4]) if len(a) > 4 else Fr(1, 32))
+  File "numerics/kissing5/round_k5.py", line 138, in main
+    assert ok, f"{nmb} not positive definite (pivot {mp})"
+AssertionError: B0:1 not positive definite (pivot 116)
+peak_rss_kB 351312

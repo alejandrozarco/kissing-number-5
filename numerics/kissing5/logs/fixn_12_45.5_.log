@@ -1,0 +1,6 @@
+pid 49741 2026-11-06 14:39:27 args: fixn 12 45.5
+solver failed at 1e-09 Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "fixn_D12_n45.5", "mode": "fixn", "D": 12, "n": 45.5, "delsarte": null, "status": "optimal_inaccurate", "e": -0.027876216448814665, "e_over_C": -2.7535465068590853e-05, "time": 1368.5, "sizes": [7, 6, 5, 4, 3, 2, 1]}
+rc 0 peak_rss_kB 649056 2026-11-06 15:02:30

@@ -1,0 +1,8 @@
+pid 14330 2026-11-06 17:07:25 args: bv 16
+WATCHDOG: RSS 1875696 kB > 1500000 kB, stopping pid 14330
+rc 143 peak_rss_kB 1875696 2026-11-06 17:07:41
+pid 22691 2026-11-06 17:28:16 args: bv 16
+<site-packages>/cvxpy/problems/problem.py:1539: UserWarning: Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information.
+  warnings.warn(
+{"tag": "bv_D16_L16_sym_mlin2", "mode": "bv", "D": 16, "D2": 16, "three_point": true, "status": "optimal_inaccurate", "bound": 45.51999488681995, "time": 69.5, "sizes": [9, 8, 7, 6, 5, 4, 3, 2, 1], "sym_blocks": {"G1": [41, 16, 54], "Gdet": [23, 7, 27], "orbit": [70, 50]}, "mults": "lin2"}
+rc 0 peak_rss_kB 1318608 2026-11-06 17:29:35

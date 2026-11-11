@@ -1,0 +1,26 @@
+[   0.1s] sol/fixn_D16_n46_mu0.5_sym_mlin2.npz: D=16 n=46 mu=1.25e-06 float e=0.0936167 -> exact e=1/32, KBITS=40
+[   0.3s] exact target P: 449 monomials, degree 16
+[   4.7s] expanded block      1: size 165, float min eigenvalue 1.25e-06
+[   5.1s] expanded block  1/2-u: size 120, float min eigenvalue 1.25e-06
+[   5.2s] expanded block  1/2-v: size 120, float min eigenvalue 1.25e-06
+[   5.5s] expanded block  1/2-t: size 120, float min eigenvalue 1.25e-06
+[   5.6s] expanded block   detG: size 84, float min eigenvalue 1.25e-06
+[   5.8s] rounding residual: 888 monomials, max |non-constant coef| 2.64e-08; constant 6.02583e-05 (expected about the dropped e/C(n,2) = 6.02577e-05)
+[   5.8s] WARNING: residual not small against mu; positive definiteness may fail
+[   6.5s] identity P == sum_r g_r z^T B_r z holds exactly
+[   6.5s]                     F0: size   9, positive definite, min pivot 6.52e-06
+[   6.5s]                     F1: size   8, positive definite, min pivot 6.77e-06
+[   6.5s]                     F2: size   7, positive definite, min pivot 5.07e-06
+[   6.5s]                     F3: size   6, positive definite, min pivot 4.79e-06
+[   6.5s]                     F4: size   5, positive definite, min pivot 1.8e-06
+[   6.5s]                     F5: size   4, positive definite, min pivot 0.000205
+[   6.5s]                     F6: size   3, positive definite, min pivot 9.15e-06
+[   6.5s]                     F7: size   2, positive definite, min pivot 2.51e-05
+[   6.5s]                     F8: size   1, positive definite, min pivot 1.25e-06
+[ 696.7s]                   B0:1: size 165, positive definite, min pivot 1.09e-05
+[ 813.5s]               B1:1/2-u: size 120, positive definite, min pivot 8.64e-06
+[ 937.6s]               B2:1/2-v: size 120, positive definite, min pivot 1.14e-05
+[1060.4s]               B3:1/2-t: size 120, positive definite, min pivot 1.14e-05
+[1081.1s]                B4:detG: size  84, positive definite, min pivot 1.12e-05
+[1081.4s] wrote cert_D16.json (2212 KiB); Lam: 54 bits, max |entry|*Lam: 57 bits
+peak_rss_kB 375696

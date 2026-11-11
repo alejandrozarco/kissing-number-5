@@ -1,0 +1,3 @@
+pid 25381 2026-11-06 17:35:02 args: mu 16 46 0.5
+{"tag": "fixn_D16_n46_mu0.5_sym_mlin2", "mode": "mu", "D": 16, "n": 46.0, "delsarte": null, "frac": 0.5, "e": 0.09361668023600178, "status": "optimal", "mu": 1.2529012862477564e-06, "mineig": 1.2527595232015294e-06, "time": 60.1, "blocks": {"F0": 9, "F1": 8, "F2": 7, "F3": 6, "F4": 5, "F5": 4, "F6": 3, "F7": 2, "F8": 1, "T_G1_triv": 41, "T_G1_sign": 16, "T_G1_std": 54, "T_Gdet_triv": 23, "T_Gdet_sign": 7, "T_Gdet_std": 27, "T_lin2_even": 70, "T_lin2_odd": 50}, "sym_blocks": {"G1": [41, 16, 54], "Gdet": [23, 7, 27], "orbit": [70, 50]}, "mults": "lin2"}
+rc 0 peak_rss_kB 1304656 2026-11-06 17:36:15

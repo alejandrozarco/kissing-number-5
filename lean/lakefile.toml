@@ -1,0 +1,40 @@
+name = "kissing"
+defaultTargets = ["Kissing", "Kissing4", "Kissing8", "Kissing5"]
+
+# Mathlib is the only dependency (the revision of the Coulomb Thomson formalisation whose three-point code is reused);
+# lake-manifest.json records the resolved revisions of its own dependencies.
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+git = "https://github.com/leanprover-community/mathlib4.git"
+rev = "d13f23b723b8a846827a245b89c10fc7d3f11612"
+
+# Statement (challenge, with `sorry`), proof, axiom check, and the certificate modules.
+[[lean_lib]]
+name = "Kissing"
+roots = ["Kissing.Statement", "Kissing.Solution", "Kissing.Axioms"]
+globs = ["Kissing.+"]
+
+# Dimension 4: statement (challenge, with `sorry`), proof, axiom check, and the certificate modules.
+[[lean_lib]]
+name = "Kissing4"
+roots = ["Kissing4.Statement", "Kissing4.Solution", "Kissing4.Axioms"]
+globs = ["Kissing4.+"]
+
+# Dimension 8: statement (challenge, with `sorry`), proof (two-point bound; depends on Mathlib only), axiom check.
+[[lean_lib]]
+name = "Kissing8"
+roots = ["Kissing8.Statement", "Kissing8.Solution", "Kissing8.Axioms"]
+globs = ["Kissing8.+"]
+
+# Dimension 5 (bounds 40 ≤ κ(5) ≤ 45): statement (challenge, with `sorry`), proof, axiom check, and the certificate
+# modules. Uses `Kissing.CertK` (dimension 3) and `Kissing8.Kernel` (the Gegenbauer kernels and `psd_step`).
+[[lean_lib]]
+name = "Kissing5"
+roots = ["Kissing5.Statement", "Kissing5.Solution", "Kissing5.Axioms"]
+globs = ["Kissing5.+"]
+
+# Modules regenerated from the Coulomb formalisation by ./regen.sh (not stored in this repository).
+[[lean_lib]]
+name = "ThomsonGen"
+globs = ["ThomsonGen.+"]

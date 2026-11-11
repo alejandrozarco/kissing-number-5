@@ -1,0 +1,9 @@
+pid 32833 2026-11-06 14:17:17 args: test 10
+Q_k vs U_k/(k+1) closed form: max err 3.552713678800501e-15
+Delsarte columns vs C_j^{3/2}: max err 2.9698465908722937e-15
+BV positivity, trial 0: min relative eigenvalue of sum_ijl S_k over k: 6.239079893339171e-06
+BV positivity, trial 1: min relative eigenvalue of sum_ijl S_k over k: 5.142884327157518e-06
+BV positivity, trial 2: min relative eigenvalue of sum_ijl S_k over k: 7.059735551776945e-06
+dsum identity rel err 1.6586428382849013e-14
+D5 roots: points 40  max off-diagonal inner product 0.4999999999999999
+rc 0 peak_rss_kB 129888 2026-11-06 14:22:38
