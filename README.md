@@ -8,9 +8,10 @@ of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 > [!IMPORTANT]
 > This repository is a public, timestamped, AI-produced **warrant** for a Lean 4 proof that the kissing number in
 > dimension 5 is at least 40 and at most 45: a machine-checked argument that no human has yet digested. Both bounds
-> are known results. The best published upper bound is 44 (Mittelmann and Vallentin, 2010), so the upper bound here
-> is **not** new; what this repository adds is a machine-checked proof of a bound of this kind. We do not regard
-> this formal argument as settled until it has been checked independently.
+> are known results, and 45 is **not** the best known upper bound: Mittelmann and Vallentin (2010) obtained 44, and
+> Tomar (2026, preprint) proves 43 (*correction of 2026-11-25*: this text first called 44 the best published bound;
+> see [related work](#upstream-code-and-related-work)). What this repository adds is a machine-checked proof of a
+> bound of this kind. We do not regard this formal argument as settled until it has been checked independently.
 > Independent verification and human-readable expositions are welcome, and credit for a human-readable proof belongs
 > to whoever writes one. To refer to the computational result, please cite the archived repository
 > ([10.5281/zenodo.24145123](https://doi.org/10.5281/zenodo.24145123)). Questions, checks and corrections:
@@ -426,8 +427,15 @@ Total 3.4 h; largest peak 8.60 GiB (`ThomsonGen.M2`).
     [kissing-number-4](https://github.com/alejandrozarco/kissing-number-4) and
     [kissing-number-8](https://github.com/alejandrozarco/kissing-number-8).
 
-  We did not find a formal proof of either bound in dimension 5, nor an exact certificate for
-  $`\kappa(5) \le 45`$ or $`\kappa(5) \le 44`$; please tell us if one exists.
+  *Corrected 2026-11-25.* This paragraph first said that we had found no formal proof of an upper bound in
+  dimension 5 and no exact certificate for 45 or 44. Both statements were wrong:
+  - Bachoc and Vallentin (2008) checked their solution for 45 in rational arithmetic.
+  - T. S. Tomar, *The kissing numbers in dimensions five, six and seven are at most 43, 76 and 132*, preprint, Zenodo
+    [10.5281/zenodo.23638108](https://doi.org/10.5281/zenodo.23638108) (first version 2026-10-27), proves
+    $`\kappa(5) \le 43`$ with an exact certificate for the Lasserre hierarchy. Its Lean proofs assume the positivity
+    of zonal kernels built from zonal-polynomial files (the paper's hypothesis `ZonalPSD`).
+
+  Please tell us of anything else we missed.
 
 ## Licence
 
