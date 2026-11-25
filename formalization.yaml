@@ -10,7 +10,8 @@ project:
     40 <= kissing number of R^5 <= 45. Lower bound: the 40 roots of D5, with integer coordinates scaled by sqrt 2.
     Upper bound: an exact Bachoc-Vallentin three-point semidefinite certificate (total degree 16) for 46 unit vectors
     with pairwise inner products at most 1/2, checked by `decide +kernel`, with a Lean proof of three-point positivity
-    on S^4 for degrees up to 8. The best published upper bound (44, Mittelmann and Vallentin 2010) is stronger. The
+    on S^4 for degrees up to 8. Stronger upper bounds exist: 44 (Mittelmann and Vallentin 2010) and 43 (Tomar 2026,
+    preprint). The
     repository also contains the certificate as JSON with an independent exact checker in Python.
   authors:
     - "alejandrozarco (repository owner; directed the work)"
@@ -32,7 +33,14 @@ sources:
     id: "Experiment. Math. 19 (2010), 175-179"
     type: "article"
     relationship: "other"
-    note: "The best published upper bound kappa(5) <= 44 (not formalised here)."
+    note: "The stronger upper bound kappa(5) <= 44 (not formalised here)."
+    author_endorsement: "not-contacted"
+  - title: "The kissing numbers in dimensions five, six and seven are at most 43, 76 and 132"
+    authors: ["T. S. Tomar"]
+    id: "preprint, Zenodo 10.5281/zenodo.23638108"
+    type: "preprint"
+    relationship: "other"
+    note: "The best known upper bound kappa(5) <= 43, by an exact certificate for the Lasserre hierarchy; its Lean theorems assume the positivity of zonal kernels built from zonal-polynomial files (hypothesis ZonalPSD). Not used here."
     author_endorsement: "not-contacted"
   - title: "Fixed-n three-point certificate for 46 points in dimension 5 (this repository)"
     type: "original-proof"
@@ -126,7 +134,7 @@ automation:
 fidelity:
   divergences: >-
     - Only bounds are formalised; the exact value of kappa(5) is open.
-    - The upper bound 45 is weaker than the best published bound 44.
+    - The upper bound 45 is weaker than the known bounds 44 (Mittelmann and Vallentin 2010) and 43 (Tomar 2026, preprint).
     - Three-point positivity on S^4 is proved for the degrees used (up to 8), not in general.
 
 review:
