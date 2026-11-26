@@ -7,12 +7,13 @@ project:
   name: "kissing-number-5: bounds for the kissing number in dimension 5"
   description: >-
     An AI-produced warrant, meaning a machine-checked Lean proof that no human has digested, of the known bounds
-    40 <= kissing number of R^5 <= 45. Lower bound: the 40 roots of D5, with integer coordinates scaled by sqrt 2.
-    Upper bound: an exact Bachoc-Vallentin three-point semidefinite certificate (total degree 16) for 46 unit vectors
-    with pairwise inner products at most 1/2, checked by `decide +kernel`, with a Lean proof of three-point positivity
-    on S^4 for degrees up to 8. Stronger upper bounds exist: 44 (Mittelmann and Vallentin 2010) and 43 (Tomar 2026,
-    preprint). The
-    repository also contains the certificate as JSON with an independent exact checker in Python.
+    40 <= kissing number of R^5 <= 44 (version 2; version 1 proved 40 and 45). Lower bound: the 40 roots of D5, with
+    integer coordinates scaled by sqrt 2. Upper bound 44 (Mittelmann and Vallentin 2010; not the best known bound,
+    Tomar 2026 proves 43): an
+    exact Bachoc-Vallentin three-point semidefinite certificate (total degree 32) for 45 unit vectors with pairwise
+    inner products at most 1/2, checked by `decide +kernel` in tree-shaped row chunks, with a Lean proof of
+    three-point positivity on S^4 for degrees up to 16. Upper bound 45: a degree-16 certificate for 46 points. The
+    repository also contains both certificates as JSON with independent exact checkers in Python.
   authors:
     - "alejandrozarco (repository owner; directed the work)"
     - "Claude Opus 5.5 (Anthropic), AI model that produced the certificate and Lean code"
@@ -26,23 +27,30 @@ sources:
     id: "J. Amer. Math. Soc. 21 (2008), 909-924"
     type: "article"
     relationship: "background"
-    note: "The three-point method and the bound kappa(5) <= 45. Its positivity theorem is formalised here for S^4 and degrees up to 8."
+    note: "The three-point method and the bound kappa(5) <= 45. Its positivity theorem is formalised here for S^4 and degrees up to 16."
     author_endorsement: "not-contacted"
   - title: "High-accuracy semidefinite programming bounds for kissing numbers"
     authors: ["H. D. Mittelmann", "F. Vallentin"]
     id: "Experiment. Math. 19 (2010), 175-179"
     type: "article"
     relationship: "other"
-    note: "The stronger upper bound kappa(5) <= 44 (not formalised here)."
+    note: "The upper bound kappa(5) <= 44 from a floating-point computation, formalised here with an independent exact certificate."
+    author_endorsement: "not-contacted"
+  - title: "Improving the semidefinite programming bound for the kissing number by exploiting polynomial symmetry"
+    authors: ["F. C. Machado", "F. M. de Oliveira Filho"]
+    id: "Experiment. Math. 27 (2018)"
+    type: "article"
+    relationship: "background"
+    note: "The symmetry reduction of the three-point program used for the degree-32 certificate."
     author_endorsement: "not-contacted"
   - title: "The kissing numbers in dimensions five, six and seven are at most 43, 76 and 132"
     authors: ["T. S. Tomar"]
-    id: "preprint, Zenodo 10.5281/zenodo.23638108"
+    id: "preprint, Zenodo 10.5281/zenodo.23638108 (version 3, 2026-11-12)"
     type: "preprint"
     relationship: "other"
-    note: "The best known upper bound kappa(5) <= 43, by an exact certificate for the Lasserre hierarchy; its Lean theorems assume the positivity of zonal kernels built from zonal-polynomial files (hypothesis ZonalPSD). Not used here."
+    note: "The stronger bound kappa(5) <= 43 (best known upper bound), by an exact certificate for the second level of the Lasserre hierarchy; its Lean theorems assume the hypothesis ZonalPSD (positivity of the zonal kernels from zonal-polynomial files, not formalised). Not used here."
     author_endorsement: "not-contacted"
-  - title: "Fixed-n three-point certificate for 46 points in dimension 5 (this repository)"
+  - title: "Fixed-n three-point certificates for 46 and 45 points in dimension 5 (this repository)"
     type: "original-proof"
     relationship: "formalizes"
     note: "AI-produced; numerics/kissing5/ and lean/Kissing5/. Not refereed."
@@ -73,11 +81,23 @@ classification:
   msc2020: ["52C17", "05B40", "90C22", "03B35"]
 
 status:
-  scope: "40 <= kappa(5) <= 45, with arrangements of any cardinality (sizes in ENat). The exact value is open."
+  scope: "40 <= kappa(5) <= 44, with arrangements of any cardinality (sizes in ENat). The exact value is open."
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: ["propext", "Classical.choice", "Quot.sound"]
   main_results:
+    - declaration: "Kissing5.K44.kissingNumber_five_le_fortyFour"
+      file: "lean/Kissing5/Solution44.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "lean/comparator44.json"
+      literature_dependencies: []
+    - declaration: "Kissing5.K44.encard_le_fortyFour_of_isKissing"
+      file: "lean/Kissing5/Solution44.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "lean/comparator44.json"
+      literature_dependencies: []
     - declaration: "Kissing5.kissingNumber_five_bounds"
       file: "lean/Kissing5/Solution.lean"
       sorry_count: 0
@@ -97,10 +117,12 @@ status:
       comparator_config: "lean/comparator5.json"
       literature_dependencies: []
   notes: >-
-    Statement file: lean/Kissing5/Statement.lean (sorry by design). The package also contains the dimension-3, -4 and
-    -8 developments, which share its Lake configuration; their records are in their own repositories. Comparator,
-    axioms, a nanoda second-kernel check and a clean build of a fresh copy of the package are recorded in
-    verification/. No `native_decide`.
+    Statement files: lean/Kissing5/Statement44.lean (bound 44) and lean/Kissing5/Statement.lean (bounds 40 and 45),
+    sorry by design, with the same definitions in the namespaces Kissing5.K44 and Kissing5. The 472 generated
+    certificate modules of the bound 44 (516 MB) are not stored; lean/regen44.sh regenerates them and checks their
+    sha256. The package also contains the dimension-3, -4 and -8 developments, which share its Lake configuration;
+    their records are in their own repositories. Comparator, axioms, a nanoda second-kernel check and a clean build of
+    a fresh copy of the package are recorded in verification44/ and verification/. No `native_decide`.
 
 automation:
   methods:
@@ -108,13 +130,13 @@ automation:
       models: ["claude-opus-5-5"]
       framework: "Claude Code"
       tool_setup: >-
-        Claude Opus 5.5 with terminal access. Python (cvxpy/Clarabel, numpy, scipy, python-flint, sympy) for SDP
-        solving, exact rounding, checking and generating the addition identities. Lean 4 v4.34.1 + Mathlib, modules
-        built one at a time on a Linux workstation.
+        Claude Opus 5.5 with terminal access. Python (cvxpy/Clarabel, numpy, scipy, mpmath, gmpy2, python-flint,
+        sympy) and SDPA-GMP for SDP solving, exact rounding, checking and generating the Lean data. Lean 4 v4.34.1 +
+        Mathlib, modules built one at a time on a laptop and on a Linux workstation.
       cost:
-        wall_time: "about 2 days of work (2026-11-06 to 2026-11-07), release checks and documents to 2026-11-11"
+        wall_time: "version 1: 2026-11-06 to 2026-11-11; version 2: 2026-11-07 to 2026-11-25, most of it the degree-32 SDP solve (about two weeks on one background core)"
         spend_usd: "subscription-based usage"
-        hardware: "Apple-silicon laptop for the SDP; Linux workstation (6 cores, 19 GB RAM) for Lean builds"
+        hardware: "Apple-silicon laptop for the SDP, the rounding and a first Lean build; Linux workstation (6 cores, 19 GB RAM) for the release Lean builds"
       prompting_notes: >-
         The owner set the goal, approved the statement file and decided on scope and publication. Plans and results
         are recorded in a development journal (not public).
@@ -122,7 +144,7 @@ automation:
       models: ["claude-fable-5-2"]
       framework: "Claude Code"
       tool_setup: "A separate read-only instance."
-      prompting_notes: "Feasibility and literature review of the numerical plan before the work; see AI_DISCLOSURE.md."
+      prompting_notes: "Feasibility and literature review of the numerical plan before the work, and solver research for version 2; see AI_DISCLOSURE.md."
     - method: "agent"
       models: ["claude-opus-5-5"]
       framework: "Claude Code"
@@ -134,8 +156,9 @@ automation:
 fidelity:
   divergences: >-
     - Only bounds are formalised; the exact value of kappa(5) is open.
-    - The upper bound 45 is weaker than the known bounds 44 (Mittelmann and Vallentin 2010) and 43 (Tomar 2026, preprint).
-    - Three-point positivity on S^4 is proved for the degrees used (up to 8), not in general.
+    - The bound 44 and the bounds 40, 45 are stated in two files with the same definitions in two namespaces; there is
+      no single Lean theorem 40 <= kappa(5) <= 44.
+    - Three-point positivity on S^4 is proved for the degrees used (up to 16), not in general.
 
 review:
   status: "agent-reviewed"
@@ -146,6 +169,14 @@ review:
 alignment:
   namespace: "Kissing5"
   statements:
+    - source: "kappa(5) <= 44 (Mittelmann-Vallentin 2010)"
+      lean: "Kissing5.K44.kissingNumber_five_le_fortyFour"
+      module: "lean/Kissing5/Solution44.lean (statement: lean/Kissing5/Statement44.lean)"
+      status: "proved"
+    - source: "every kissing arrangement in R^5 has at most 44 balls"
+      lean: "Kissing5.K44.encard_le_fortyFour_of_isKissing"
+      module: "lean/Kissing5/Solution44.lean (statement: lean/Kissing5/Statement44.lean)"
+      status: "proved"
     - source: "40 <= kappa(5) <= 45 (lower bound: D5 root system; upper bound: Bachoc-Vallentin 2008)"
       lean: "Kissing5.kissingNumber_five_bounds"
       module: "lean/Kissing5/Solution.lean (statement: lean/Kissing5/Statement.lean)"

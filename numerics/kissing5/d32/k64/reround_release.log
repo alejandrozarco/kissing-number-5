@@ -1,0 +1,92 @@
+# Reproduction of the SDP file and of the certificate from the stored solution (laptop, macOS arm64, 2026-11-25),
+# run from numerics/kissing5/ with <tmp> a scratch directory:
+#   xz -dc d32/hp072.out.xz > <tmp>/hp072.out
+#   HP=1 python3 sdpa5.py write 32 45 <tmp>/k5_D32_n45_hp.dat-s
+#   compare its sha256 with d32/k5_D32_n45_hp.dat-s.sha256 and its .meta.json with d32/k5_D32_n45_hp.dat-s.meta.json
+#   python3 d32/round_hp.py <tmp>/k5_D32_n45_hp.dat-s <tmp>/hp072.out <tmp>/cert.json 64 1/33554432
+#   compare the sha256 of <tmp>/cert.json with that of the decompressed d32/k64/cert.json.xz (69d25a7c…167d)
+== write 01:16:23
+2026-11-25 01:16:38 [load guard] pause (load 8.2)
+{"D": 32, "n": 45, "m": 1240, "blocks": [17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, -1, 204, 123, 321, 147, 83, 225, 444, 372], "nnz": 3558122, "time": 231.6}
+      242.86 real       169.29 user        17.50 sys
+          1212645376  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+             4751066  page reclaims
+                 446  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 357  voluntary context switches
+              548593  involuntary context switches
+       1212067037278  instructions retired
+        454690298072  cycles elapsed
+          1665877624  peak memory footprint
+2026-11-25 01:26:58 [load guard] resume (load 7.9)
+3021195ca6fd9afb43d99e3f299e072fac3ccb37da5a187bf99540f560422ffb  k5_D32_n45_hp.dat-s
+DAT-S IDENTICAL
+META IDENTICAL
+== round 01:26:58
+[     8.6s] <tmp>/hp072.out: D=32 n=45, solution e = 6.97593847829e-8, claimed E = 1/33554432 (2.98023e-08), KBITS=64
+[    10.0s] target P: 2721 monomials, degree 32
+2026-11-25 01:27:13 [load guard] pause (load 8.1)
+[    48.3s] expanded the reduced blocks (mpmath)
+[    52.7s] rounded Gram      1: size 969
+[    55.9s] rounded Gram  1/2-u: size 816
+[    59.1s] rounded Gram  1/2-v: size 816
+[    62.2s] rounded Gram  1/2-t: size 816
+[    64.3s] rounded Gram   detG: size 680
+[    66.3s] residual: 6539 monomials, max |non-constant coef| 1.160e-11; constant 4.036067e-11 (dropped margin (e - E)/C(n,2) = 4.036067e-11)
+[    91.2s] identity P == sum_r g_r z^T B_r z holds exactly
+[    91.2s] F0  size  17: positive definite, min pivot 2.45e-13
+[    91.2s] F1  size  16: positive definite, min pivot 4.41e-09
+[    91.2s] F2  size  15: positive definite, min pivot 1.73e-09
+[    91.3s] F3  size  14: positive definite, min pivot 5.03e-10
+[    91.3s] F4  size  13: positive definite, min pivot 1.33e-09
+[    91.3s] F5  size  12: positive definite, min pivot 4.92e-09
+[    91.3s] F6  size  11: positive definite, min pivot 1.3e-11
+[    91.3s] F7  size  10: positive definite, min pivot 9.14e-11
+[    91.3s] F8  size   9: positive definite, min pivot 4.58e-11
+[    91.3s] F9  size   8: positive definite, min pivot 2.61e-11
+[    91.3s] F10 size   7: positive definite, min pivot 7.06e-14
+[    91.3s] F11 size   6: positive definite, min pivot 5.82e-14
+[    91.3s] F12 size   5: positive definite, min pivot 2.93e-14
+[    91.3s] F13 size   4: positive definite, min pivot 3.34e-14
+[    91.3s] F14 size   3: positive definite, min pivot 5.66e-14
+[    91.3s] F15 size   2: positive definite, min pivot 2.83e-14
+[    91.3s] F16 size   1: positive definite, min pivot 3.72e-14
+2026-11-25 01:28:44 [load guard] resume (load 7.9)
+2026-11-25 01:33:17 [load guard] pause (load 8.4)
+[   500.1s] B[     1] size  969: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+2026-11-25 01:38:20 [load guard] resume (load 7.8)
+[   699.1s] B[ 1/2-u] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[   892.4s] B[ 1/2-v] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  1133.0s] B[ 1/2-t] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  1322.7s] B[  detG] size  680: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  1322.7s] ALL CHECKS PASSED
+[  1328.6s] wrote <tmp>/cert.json (151747 KiB)
+     1331.35 real      1240.66 user        30.93 sys
+          1314193408  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+            10432217  page reclaims
+                1467  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   0  messages sent
+                   0  messages received
+                   0  signals received
+                 602  voluntary context switches
+              614809  involuntary context switches
+       9121704210996  instructions retired
+       3167966225789  cycles elapsed
+          3094317744  peak memory footprint
+69d25a7c94fe16e116580b45f2b91e0a3bebed93a7f91f315a3c2a2317eb167d  <tmp>/cert.json
+CERT IDENTICAL
+rc 0 peak_rss_kB 1159600 2026-11-25 01:49:13

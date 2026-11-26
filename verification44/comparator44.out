@@ -1,0 +1,54 @@
+Building Kissing5.Statement44
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build Kissing5.Statement44
+⚠ [8924/8924] Replayed Kissing5.Statement44
+warning: Kissing5/Statement44.lean:38:8: declaration uses `sorry`
+warning: Kissing5/Statement44.lean:42:8: declaration uses `sorry`
+Build completed successfully (8924 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec <tools>/lean4export/.lake/build/bin/lean4export Kissing5.Statement44 -- Quot Quot.mk Quot.lift Quot.ind Kissing5.K44.encard_le_fortyFour_of_isKissing Kissing5.K44.kissingNumber_five_le_fortyFour propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, Kissing5.K44.encard_le_fortyFour_of_isKissing, Kissing5.K44.kissingNumber_five_le_fortyFour, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Kissing5.Statement44
+Building Kissing5.Solution44
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec lake build Kissing5.Solution44
+⚠ [8924/8952] Replayed ThomsonGen.ThreePoint
+warning: ThomsonGen/ThreePoint.lean:161:30: This simp argument is unused:
+  real_inner_self_eq_norm_sq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Set.domRestrict, v, hx]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ThomsonGen/ThreePoint.lean:206:65: This simp argument is unused:
+  Pi.star_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [matDot, Matrix.sum_apply, Matrix.vecMulVec_apply, star_trivial, dotProduct, Matrix.mulVec,
+    Finset.sum_mul, Finset.mul_sum]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ThomsonGen/ThreePoint.lean:243:85: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [8926/8952] Replayed ThomsonGen.Cert1
+warning: ThomsonGen/Cert1.lean:48:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: ThomsonGen/Cert1.lean:48:31: `if_pos` has been deprecated: Use `ite_eq_left` instead
+warning: ThomsonGen/Cert1.lean:49:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: ThomsonGen/Cert1.lean:49:20: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: ThomsonGen/Cert1.lean:74:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+warning: ThomsonGen/Cert1.lean:74:20: `if_neg` has been deprecated: Use `ite_eq_right` instead
+⚠ [8935/8952] Replayed Kissing5.Addition3
+warning: Kissing5/Addition3.lean:74:2: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [8938/8952] Replayed Kissing5.Addition4
+warning: Kissing5/Addition4.lean:74:2: Unused tactic linter: `push_cast` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+Build completed successfully (9425 jobs).
+WARNING: THIS IS NOT REAL LANDRUN! UNSAFELY RUNNING exec <tools>/lean4export/.lake/build/bin/lean4export Kissing5.Solution44 -- Quot Quot.mk Quot.lift Quot.ind Kissing5.K44.encard_le_fortyFour_of_isKissing Kissing5.K44.kissingNumber_five_le_fortyFour propext Quot.sound Classical.choice Nat.add Nat.sub Nat.mul Nat.pow Nat.gcd Nat.div Nat.mod Nat.beq Nat.ble Nat.land Nat.lor Nat.xor Nat.shiftLeft Nat.shiftRight String.ofList Char.ofNat List eagerReduce Nat String String.mk Char optParam autoParam semiOutParam outParam
+Exporting #[Quot, Quot.mk, Quot.lift, Quot.ind, Kissing5.K44.encard_le_fortyFour_of_isKissing, Kissing5.K44.kissingNumber_five_le_fortyFour, propext, Quot.sound, Classical.choice, Nat.add, Nat.sub, Nat.mul, Nat.pow, Nat.gcd, Nat.div, Nat.mod, Nat.beq, Nat.ble, Nat.land, Nat.lor, Nat.xor, Nat.shiftLeft, Nat.shiftRight, String.ofList, Char.ofNat, List, eagerReduce, Nat, String, String.mk, Char, optParam, autoParam, semiOutParam, outParam] from Kissing5.Solution44
+Running Lean default kernel on solution.
+Lean default kernel accepts the solution
+Your solution is okay!
+real 46588.04
+user 45885.62
+sys 250.31
+COMPARATOR EXIT: 0

@@ -1,0 +1,9 @@
+== NEG_ONLY: export c64f37e6e5a4e3fb31e29411507749fd51f75471f2f2a3565f8bf808e635b519 export.ndjson was accepted earlier (Checked 45712 declarations with no errors)
+
+== negative control: literal 102990556912...891848187903 (73772 digits) changed to 102990556912...891848187904 (73772 digits)
+negative control ok: nanoda rejected the tampered export
+thread 'main' (3583324) panicked at src/tc.rs:955:71:
+assertion failed: self.def_eq(u, v)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+
+SECOND KERNEL: OK (export accepted, tampered export rejected)

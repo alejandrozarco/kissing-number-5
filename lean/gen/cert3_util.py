@@ -431,7 +431,7 @@ def _isqrt_floor_log2(P):
     return P.bit_length() - 1
 
 
-def pack_psd(M, theta=Fr(1, 2)):
+def pack_psd(M, theta=Fr(1, 2), lmin=None):
     """Exact integer data (d, l, Δ) with sum_q d_q l_q l_q^T + Δ == M EXACTLY (M symmetric integer PD),
     l_q[a] = 0 for a < q, l_q[q] = 2^p_q, d_q >= 0, Δ symmetric; returns (Blk, info) -- the DD property of Δ
     (the only non-trivial condition of Blk.ok) is reported, not assumed.
@@ -444,13 +444,20 @@ def pack_psd(M, theta=Fr(1, 2)):
     for i in range(r):
         for j in range(r):
             assert M[i][j] == M[j][i]
-    sc = max(abs(x) for row in M for x in row)
-    e2 = sc.bit_length()
-    Af = np.array([[float(Fr(x, 1 << e2)) for x in row] for row in M])
-    lmin = float(np.linalg.eigvalsh(Af)[0])
-    if lmin <= 0:
-        return None, {"why": f"float lambda_min {lmin:.3e} <= 0"}
-    eps = int(Fr(lmin) * theta * (1 << e2))
+    if lmin is None:
+        sc = max(abs(x) for row in M for x in row)
+        e2 = sc.bit_length()
+        Af = np.array([[float(Fr(x, 1 << e2)) for x in row] for row in M])
+        lmin = float(np.linalg.eigvalsh(Af)[0])
+        if lmin <= 0:
+            return None, {"why": f"float lambda_min {lmin:.3e} <= 0"}
+        eps = int(Fr(lmin) * theta * (1 << e2))
+    else:
+        # lmin given by the caller (a Fraction, in the units of M): for blocks whose relative lambda_min is below
+        # what double precision resolves (D32: ~1e-14 relative); only the shift eps depends on it, and the result is
+        # still checked exactly (identity assert below, Blk.ok)
+        eps = int(Fr(lmin) * theta)
+        lmin = float(lmin)
     A = [list(row) for row in M]
     for i in range(r):
         A[i][i] -= eps

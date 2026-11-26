@@ -1,0 +1,2 @@
+'Kissing5.K44.encard_le_fortyFour_of_isKissing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Kissing5.K44.kissingNumber_five_le_fortyFour' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -1,17 +1,23 @@
-# Bounds for the kissing number in dimension 5: a Lean 4 formalisation of 40 ≤ κ(5) ≤ 45
+# Bounds for the kissing number in dimension 5: a Lean 4 formalisation of 40 ≤ κ(5) ≤ 44
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24145123.svg)](https://doi.org/10.5281/zenodo.24145123)
 
-Status: **Lean 4 formalisation, not peer reviewed.** Prepared 2026-11-11. **Produced by AI models** under the direction
-of the repository owner; see [`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
+Status: **Lean 4 formalisation, not peer reviewed.** Version 2, prepared 2026-11-25 (version 1, 2026-11-11: the bounds
+40 and 45). **Produced by AI models** under the direction of the repository owner; see
+[`AI_DISCLOSURE.md`](AI_DISCLOSURE.md).
 
 > [!IMPORTANT]
 > This repository is a public, timestamped, AI-produced **warrant** for a Lean 4 proof that the kissing number in
-> dimension 5 is at least 40 and at most 45: a machine-checked argument that no human has yet digested. Both bounds
-> are known results, and 45 is **not** the best known upper bound: Mittelmann and Vallentin (2010) obtained 44, and
-> Tomar (2026, preprint) proves 43 (*correction of 2026-11-25*: this text first called 44 the best published bound;
-> see [related work](#upstream-code-and-related-work)). What this repository adds is a machine-checked proof of a
-> bound of this kind. We do not regard this formal argument as settled until it has been checked independently.
+> dimension 5 is at least 40 and at most 44: a machine-checked argument that no human has yet digested.
+> - **Both bounds are known, and 44 is not the best known upper bound.** Mittelmann and Vallentin (2010) obtained 44
+>   from a high-precision floating-point computation. Tomar (2026, preprint) proves $`\kappa(5) \le 43`$ with an exact
+>   certificate; the preprint's Lean proofs assume the positivity of zonal kernels built from data files
+>   ([related work](#upstream-code-and-related-work)).
+> - **What is here:** an exact rational three-point certificate for 44, and a Lean proof of 44 without such an
+>   assumption. The positivity theorem it needs is proved in Lean, and the theorem depends only on Lean's standard
+>   axioms.
+> - We do not regard this formal argument as settled until it has been checked independently.
+>
 > Independent verification and human-readable expositions are welcome, and credit for a human-readable proof belongs
 > to whoever writes one. To refer to the computational result, please cite the archived repository
 > ([10.5281/zenodo.24145123](https://doi.org/10.5281/zenodo.24145123)). Questions, checks and corrections:
@@ -21,16 +27,22 @@ Archived on Zenodo: [10.5281/zenodo.24145123](https://doi.org/10.5281/zenodo.241
 Cite with `CITATION.cff`.
 
 The kissing number $`\kappa(d)`$ is the largest number of non-overlapping unit balls in $`\mathbb{R}^d`$ that touch a
-common unit ball. Its value in dimension 5 is not known. `lean/Kissing5/Statement.lean` states, and the Lean kernel
-checks in `lean/Kissing5/Solution.lean`:
+common unit ball. Its value in dimension 5 is not known; the best known upper bound is 43 (Tomar, 2026, preprint).
+The Lean kernel checks, in two theorems with the same definitions (see below),
 
 ```math
-40 \le \kappa(5) \le 45 .
+40 \le \kappa(5) \le 44 .
 ```
 
-The lower bound uses the 40 roots of $`D_5`$, with integer coordinates. The upper bound uses an exact three-point
-semidefinite certificate in the sense of Bachoc and Vallentin for 46 points, checked by `decide +kernel`. It also
-uses a Lean proof of the Bachoc–Vallentin positivity theorem on the sphere $`S^4`$ for the degrees used.
+- **Upper bound 44** (added in version 2): stated in `lean/Kissing5/Statement44.lean`, proved in
+  `lean/Kissing5/Solution44.lean`. It uses an exact three-point semidefinite certificate in the sense of Bachoc and
+  Vallentin for 45 points, of total degree 32, checked by `decide +kernel`, and a Lean proof of the Bachoc–Vallentin
+  positivity theorem on the sphere $`S^4`$ for degrees up to 16.
+- **Lower bound 40** and the weaker upper bound 45 (version 1): stated in `lean/Kissing5/Statement.lean`, proved in
+  `lean/Kissing5/Solution.lean`. The lower bound uses the 40 roots of $`D_5`$, with integer coordinates.
+
+The two statement files use the same definitions, word for word, in two namespaces (`Kissing5` and `Kissing5.K44`),
+so that the proof of 44 does not depend on the certificate of 45.
 
 ## The statement
 
@@ -43,6 +55,11 @@ def IsKissing {d : ℕ} (S : Set (E d)) : Prop :=
 noncomputable def kissingNumber (d : ℕ) : ℕ∞ :=
   ⨆ (S : Set (E d)) (_ : IsKissing S), S.encard
 
+-- lean/Kissing5/Statement44.lean (namespace Kissing5.K44)
+theorem encard_le_fortyFour_of_isKissing (S : Set (E 5)) (hS : IsKissing S) : S.encard ≤ 44
+theorem kissingNumber_five_le_fortyFour : kissingNumber 5 ≤ 44
+
+-- lean/Kissing5/Statement.lean (namespace Kissing5)
 theorem exists_isKissing_encard_eq_forty : ∃ S : Set (E 5), IsKissing S ∧ S.encard = 40
 theorem encard_le_fortyFive_of_isKissing (S : Set (E 5)) (hS : IsKissing S) : S.encard ≤ 45
 theorem kissingNumber_five_bounds : 40 ≤ kissingNumber 5 ∧ kissingNumber 5 ≤ 45
@@ -50,27 +67,105 @@ theorem kissingNumber_five_bounds : 40 ≤ kissingNumber 5 ∧ kissingNumber 5 �
 
 `IsKissing S` says that the points of `S` are centres of unit balls that touch the unit ball at the origin (distance
 2) and do not overlap each other (pairwise distance at least 2). Sets may be infinite; sizes are counted in `ℕ∞`.
-Three further theorems test the definition:
+Three further theorems of `Statement.lean` test the definition:
 - two opposite balls form an arrangement;
 - two balls $`30^\circ`$ apart do not;
 - a ball at distance 3 does not.
 
 The definitions are those of [kissing-number-3](https://github.com/alejandrozarco/kissing-number-3) and
 [kissing-number-4](https://github.com/alejandrozarco/kissing-number-4) with $`d = 5`$.
-[`lean/STATEMENT5.md`](lean/STATEMENT5.md) explains every line.
+[`lean/STATEMENT44.md`](lean/STATEMENT44.md) and [`lean/STATEMENT5.md`](lean/STATEMENT5.md) explain every line.
 
-Checks recorded in [`verification/`](verification/):
-- **Comparator:** the six theorems of `lean/comparator5.json` have the statements of `lean/Kissing5/Statement.lean`,
-  use only the axioms `propext`, `Quot.sound`, `Classical.choice`, and are accepted by the Lean kernel.
-- **Axioms:** `#print axioms` reports `[propext, Classical.choice, Quot.sound]` for all six.
-- **Second kernel:** the export of the six theorems is accepted by nanoda, an independent type checker for Lean 4
-  written in Rust. A copy with one changed number is rejected.
-- **Clean build:** the modules the proof uses, compiled one at a time from a fresh copy, with wall time and peak
-  memory (table below).
+Checks recorded in [`verification44/`](verification44/) (bound 44) and [`verification/`](verification/) (version 1):
+- **Comparator:** the theorems of `lean/comparator44.json` (and of `lean/comparator5.json`) have the statements of the
+  statement files, use only the axioms `propext`, `Quot.sound`, `Classical.choice`, and are accepted by the Lean
+  kernel.
+- **Axioms:** `#print axioms` reports `[propext, Classical.choice, Quot.sound]` for all of them.
+- **Second kernel:** their export is accepted by nanoda, an independent type checker for Lean 4 written in Rust. A
+  copy with one changed number is rejected.
+- **Clean build:** the modules each proof uses, compiled one at a time from a fresh copy, with wall time and peak
+  memory (summary below).
 
-The files contain no `sorry` outside the `Statement.lean` files and no `native_decide`.
+The files contain no `sorry` outside the statement files and no `native_decide`.
 
-## The argument
+## The argument for 44
+
+Any arrangement with more than 44 balls contains 45. Halving their centres gives unit vectors
+$`x_1, \dots, x_{45}`$ in $`\mathbb{R}^5`$ with $`\langle x_i, x_j \rangle \le 1/2`$ for $`i \ne j`$. For three unit
+vectors write $`(u, v, t)`$ for their pairwise inner products, and let $`\Delta`$ be the set of such triples with
+$`u, v, t \le 1/2`$. The certificate consists of positive definite matrices $`F_0, \dots, F_{16}`$ of sizes 17 to 1.
+With the Bachoc–Vallentin matrices $`S_k`$ of $`S^4`$ and
+
+```math
+s(u,v,t) = \sum_{k=0}^{16} \langle F_k, S_k(u,v,t) \rangle ,
+\qquad
+R(u,v,t) = 43\, s(u,v,t) + s(u,u,1) + s(v,v,1) + s(t,t,1) + \frac{1}{44}\, s(1,1,1),
+```
+
+it contains a sum-of-squares identity showing
+
+```math
+R(u,v,t) \le -\frac{e}{990}, \qquad e = 2^{-25}, \quad \text{on } \Delta .
+```
+
+Summing over all ordered triples of distinct points and using the positivity of $`\sum_{i,j,l} S_k`$ gives
+$`e \le 0`$, a contradiction. The polynomials have total degree 32. The sum-of-squares part uses the multipliers
+$`1`$, $`1/2-u`$, $`1/2-v`$, $`1/2-t`$ and the Gram determinant $`1 + 2uvt - u^2 - v^2 - t^2`$. Their Gram matrices
+have sizes 969, 816 (three times) and 680. All entries are rationals; in Lean they are integers over the common
+denominator $`\Lambda = \Lambda_0 \cdot 2^{72}`$.
+
+This certificate is about a million times tighter than the one for 45 ($`e = 1/32`$ there), and much larger:
+- **Numerics.** The floating-point optimum has $`e \approx 7 \cdot 10^{-8}`$, and the Gram matrices have condition
+  numbers above $`10^{16}`$, beyond double precision. It was found with SDPA-GMP at 160 bits, on data computed at 256 bits and
+  written with 60 significant digits (`numerics/kissing5/sdpa5.py`, `HP=1`).
+- **Rounding.** `numerics/kissing5/d32/round_hp.py` rounds the solution to exact rationals that satisfy the identity
+  coefficient by coefficient. It certifies positive definiteness by exact $`LDL^T`$ for the $`F_k`$ and by
+  congruence (a matrix $`W`$ with $`W B W^T`$ strictly diagonally dominant) for the Gram matrices.
+- **Independent check.** `numerics/kissing5/check_big_k5.py`, sharing no code with the rounding, checks the same
+  certificate: the polynomial identity exactly, and positive definiteness by an Arb-certified congruence
+  (`numerics/kissing5/d32/k64/check_big.log`).
+
+How Lean checks it:
+- **No positive-definiteness test in Lean.** Each Gram matrix is written as an explicit sum of squares,
+  $`\sum_q d_q (\sum_c l_{qc} z_c)^2 + \sum_i [\delta_i z_i^2 + \sum_{j > i} |\Delta_{ij}| (z_i \pm z_j)^2]`$ with
+  $`d_q, \delta_i \ge 0`$. This is an exact $`LDL^T`$ plus a diagonally dominant remainder, so it is nonnegative by
+  construction (`lean/Kissing5/Tree/`).
+- **Kronecker check of the identity.** The identity is checked by Kronecker substitution, as in version 1. A row of a
+  Gram matrix is a balanced tree of terms whose statistics (ℓ¹ norm, degrees, Kronecker value) the kernel computes in
+  core Lean, without Mathlib: 448 chunk modules, each needing at most 2.2 GiB. Their sums are combined in
+  `Cert44/S*/Sum.lean`, and soundness is proved once in `lean/Kissing5/Tree/Sound.lean`.
+- **Positivity on $`S^4`$ up to degree 16.** The addition identities behind it are checked by Kronecker substitution
+  too (`lean/Kissing5/G4/`), because `ring` needs too much memory beyond degree 8.
+
+| Lean module | content |
+|---|---|
+| `Kissing5/Statement44.lean`, `Kissing5/Solution44.lean` | the statement of the bound 44 and its proof from the certificate |
+| `Kissing5/Tree/Core.lean`, `Tree/Sound.lean` | core-only tree-shaped row checks and their soundness |
+| `Kissing5/Tree/Cert.lean` | the checker `CertK5T` with SOS blocks as explicit sums of squares, and its soundness theorem `no_config5T` |
+| `Kissing5/Tree/FPart.lean` | the $`F`$-part of the identity in balanced sums, so that its kernel check stays small at degree 32 |
+| `Kissing5/G4/` | addition identities by Kronecker substitution; Gegenbauer kernels of $`\mathbb{R}^3`$, $`\mathbb{R}^4`$ positive semidefinite and Bachoc–Vallentin positivity on $`S^4`$ for degrees up to 16 |
+| `Kissing5/Cert44/` (generated, not stored) | the certificate data (`Data.lean`), the $`F`$-block checks (`ChkF*.lean`), the row-chunk checks (`S*/Q*.lean`, `S*/P*.lean`), their sums (`S*/Sum.lean`) and the composition (`Check.lean`) |
+
+The bound 44 reuses `Kissing5/Kernel.lean`, `Kissing5/Bound.lean`, the degree-independent lemmas of
+`Kissing5/Positivity.lean` and the dimension-3 checker `lean/Kissing/CertK.lean`; version 1's modules are described
+below.
+
+### The generated certificate modules
+
+`lean/Kissing5/Cert44/` has 472 files, about 516 MB. That is too large for this repository, so the files are not
+stored. `lean/regen44.sh` rebuilds them from the stored inputs and checks every file against
+`lean/gen/cert44.sha256`, the sha256 list of the files that were compiled for `verification44/`. The inputs are:
+- the exact certificate `numerics/kissing5/d32/k64/cert.json.xz`;
+- the generator `lean/gen/gen_t5.py`, with `lean/gen/cert3_util.py`, `lean/gen/emit_k5.py` and
+  `numerics/kissing5/d32/hp_blocks.py`;
+- `numerics/kissing5/d32/t5/lam.json`, the cached estimates of the smallest eigenvalues that set the shifts of the
+  $`LDL^T`$ packing. Those of the Gram matrices come from a fixed-point $`LDL^T`$ with inverse iteration, and those of
+  the $`F_k`$ from a double-precision eigenvalue routine; caching them makes the regeneration independent of the
+  machine. Everything built from them is then checked exactly, by the generator and again by Lean.
+
+<details><summary>Version 1: the argument for 45 and its modules</summary>
+
+### The argument for 45 (version 1)
 
 Any arrangement with more than 45 balls contains 46. Halving their centres gives unit vectors
 $`x_1, \dots, x_{46}`$ in $`\mathbb{R}^5`$ with $`\langle x_i, x_j \rangle \le 1/2`$ for $`i \ne j`$. For three unit
@@ -121,17 +216,19 @@ uses one addition identity per degree and dimension (`lean/Kissing5/Addition*.le
   as [kissing-number-8](https://github.com/alejandrozarco/kissing-number-8)).
 
 The Lean package here also contains the dimension-3, -4 and -8 developments, which share its Lake configuration. Their
-verification records are in their own repositories; `verification/` holds the records for `Kissing5`.
+verification records are in their own repositories; `verification/` holds the records for the bounds 40 and 45.
 
 The certificate was found in floating point with a symmetry-reduced formulation (`numerics/kissing5/k5.py`,
 `sym.py`). It was rounded to exact rationals (`numerics/kissing5/round_k5.py`). Before the Lean check, an independent
 script checked it in exact arithmetic (`numerics/kissing5/check_cert_k5.py`). The same script rejects ten tampered
 versions (`check_controls_k5.py`).
 
+</details>
+
 ## Figures
 
 Regenerate with `python3 figures/make_figures.py` (matplotlib 3.9.4, numpy); every figure is computed from repository
-files only.
+files only. They are those of version 1.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/angles_dark.svg">
@@ -146,31 +243,32 @@ Two balls touching the central ball overlap exactly when their angle is below $`
   <img alt="Heat map of minus R(u,u,t) divided by e/1035 over the feasible region of the slice u = v; all values are at least 3" src="figures/certificate_light.svg">
 </picture>
 
-The certificate inequality $`R \le -e/1035`$ with $`e = 1/32`$, evaluated in floating point from `cert_D16.json` on
-the slice $`u = v`$ of the region $`\Delta`$ (white: triples that are not inner products of unit vectors). The Lean
-check covers all of $`\Delta`$ exactly.
+The version-1 certificate inequality $`R \le -e/1035`$ with $`e = 1/32`$ (46 points, degree 16), evaluated in
+floating point from `cert_D16.json` on the slice $`u = v`$ of the region $`\Delta`$ (white: triples that are not
+inner products of unit vectors). The Lean check covers all of $`\Delta`$ exactly.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="figures/bounds_dark.svg">
   <img alt="Floating-point upper bounds for the kissing number in dimension 5 by degree: two-point bound, three-point bound, and whether the fixed-n three-point problem for n = 46 has a solution" src="figures/bounds_light.svg">
 </picture>
 
-Floating-point values from `numerics/kissing5/results.jsonl` (not certified):
+Floating-point values from `numerics/kissing5/results.jsonl` (not certified), up to degree 16:
 - the two-point (Delsarte) bound is 46.338;
-- the three-point bound computed here drops below 46 only at degree 16 (45.52);
-- the fixed-$`n`$ problem for $`n = 46`$ has no solution with positive margin at degree 12 and has one at degree 16.
+- the three-point bound computed here drops below 46 only at degree 16 (45.52).
 
-The certificate is the rounded degree-16 solution.
+For $`n = 45`$, the fixed-$`n`$ margin is negative at degree 24 ($`e = -4.8 \cdot 10^{-9}`$, SDPA-GMP log
+`numerics/kissing5/sdpa/s24.log`) and positive at degree 32 ($`e \approx 7.0 \cdot 10^{-8}`$;
+`numerics/kissing5/d32/`).
 
 ## Contents
 
 | path | content |
 |---|---|
-| `lean/` | the Lean package: statement, proof, certificate modules, emitters (`gen/`), `regen.sh`, Comparator configs, build and second-kernel scripts |
-| `lean/STATEMENT5.md` | the statement in plain English |
-| `numerics/kissing5/` | SDP formulation for $`S^4`$ with its symmetry reduction, floating-point solutions, exact rounding, exact checker, the certificate `cert_D16.json` |
+| `lean/` | the Lean package: statements, proofs, certificate modules of version 1, generators (`gen/`), `regen.sh`, `regen44.sh`, Comparator configs, build and second-kernel scripts |
+| `lean/STATEMENT44.md`, `lean/STATEMENT5.md` | the statements in plain English |
+| `numerics/kissing5/` | SDP formulations for $`S^4`$, solutions, exact rounding, exact checkers, the certificates `cert_D16.json` (45) and `d32/k64/cert.json.xz` (44) |
 | `numerics/kissing3/` | the dimension-3 code that `numerics/kissing5/` builds on (from kissing-number-3) |
-| `verification/` | records of the clean build, Comparator, axioms, the second kernel and the upstream-text scan |
+| `verification44/`, `verification/` | records of the clean builds, Comparator, axioms, the second kernel and the upstream-text scans, for 44 and for version 1 |
 | `figures/` | the figures and `make_figures.py` |
 | `formalization.yaml` | metadata (mathlib-initiative format v0.4) |
 | `AI_DISCLOSURE.md` | how AI models were used, what is checked and what is trusted |
@@ -179,223 +277,84 @@ The certificate is the rounded degree-16 solution.
 
 ## Reproduce
 
-Lean (toolchain `leanprover/lean4:v4.34.1`, Mathlib `d13f23b`, both pinned):
+Lean (toolchain `leanprover/lean4:v4.34.1`, Mathlib `d13f23b`, both pinned). The bound 44:
 
 ```sh
 cd lean
 ./regen.sh                    # regenerates ThomsonGen/*.lean from upstream; checks the eight imported ones by sha256
+./regen44.sh                  # regenerates Kissing5/Cert44/ (about 25 min, 1.5 GB; python3 with gmpy2 and numpy, xz)
 lake exe cache get
-bash scripts/build_test.sh build_test5.tsv "Kissing5.Statement Kissing5.Solution Kissing5.Axioms"
-lake env lean Kissing5/Axioms.lean
+bash scripts/build_test.sh build_test44.tsv "Kissing5.Statement44 Kissing5.Solution44 Kissing5.Axioms44"
 ```
 
-`build_test.sh` compiles every module one at a time. The largest module (an upstream-derived one) needs about
-8.6 GiB, and the certificate modules need up to 8.3 GiB each. `lake build Kissing5` also works but may compile several modules in parallel;
-the modules form one import chain to limit this.
-- `lean/scripts/run_comparator.sh comparator5.json` runs [Comparator](https://github.com/leanprover/comparator).
-- `lean/scripts/second-kernel.sh comparator5.json` runs [nanoda](https://github.com/ammkrn/nanoda_lib) and the
-  negative control.
+`build_test.sh` compiles every module one at a time and then runs the axiom check of `Kissing5/Axioms44.lean`: 504
+modules. The 502 of the proof (`Kissing5.Solution44` and its imports) took 8.7 h on the machine of
+`verification44/`. The largest needs 8.5 GiB (an upstream-derived module),
+the composition `Kissing5.Cert44.Check` 8.4 GiB, and the 448 chunk modules at most 2.2 GiB each. With `Kissing5.Statement
+Kissing5.Solution Kissing5.Axioms` as roots, the same script checks version 1 (no `regen44.sh` needed).
+
+`lake build Kissing5` builds every module of `lean/Kissing5/`, so it needs `regen44.sh` first and may compile several
+large modules in parallel.
+
+- `lean/scripts/run_comparator.sh comparator44.json` (or `comparator5.json`) runs
+  [Comparator](https://github.com/leanprover/comparator).
+- `lean/scripts/second-kernel.sh comparator44.json` (or `comparator5.json`) runs
+  [nanoda](https://github.com/ammkrn/nanoda_lib) and the negative control.
 
 Without prebuilt tools, both scripts fetch and build them at the revisions pinned in `lean/scripts/tools.sh`. That
-file also records the sha256 of the binaries used for `verification/`.
+file also records the sha256 of the binaries used for `verification44/` and `verification/`.
 
-Certificate (Python 3, `python-flint`, `numpy`; `cvxpy` with Clarabel and `scipy` only to re-solve; `sympy` only for
-`gen_addition5.py`):
+Certificate for 44 (Python 3, `python-flint`, `mpmath`, `numpy`; SDPA-GMP only to re-solve):
 
 ```sh
 cd numerics/kissing5
-python3 check_cert_k5.py cert_D16.json                                          # exact check
-python3 check_controls_k5.py cert_D16.json                                      # tampered certificates must be rejected
-python3 round_k5.py sol/fixn_D16_n46_mu0.5_sym_mlin2.npz cert.json 40           # re-round the float solution (about 20 min)
-python3 ../../lean/gen/emit_k5.py cert_D16.json --outdir /tmp/Cert              # re-emit the Lean data
-SYM=1 MULTS=lin2 ./run.sh fixn 16 46 && SYM=1 MULTS=lin2 ./run.sh mu 16 46 0.5  # re-solve (float; about 3 min, 1.3 GB)
+xz -dk d32/k64/cert.json.xz
+python3 check_big_k5.py d32/k64/cert.json                    # independent exact check (about 25 min, 1.4 GB)
+HP=1 python3 sdpa5.py write 32 45 sdpa/k5_D32_n45_hp.dat-s   # the SDP in SDPA format, 60-digit data (140 MB)
+xz -dk d32/hp072.out.xz                                       # the SDPA-GMP solution that was rounded
+python3 d32/round_hp.py sdpa/k5_D32_n45_hp.dat-s d32/hp072.out cert.json 64 1/33554432   # re-round (about 25 min)
 ```
 
-## Clean build
+On the laptop (macOS arm64; Python 3.9.6, numpy 1.26.4, mpmath 1.3.0, python-flint 0.6.0) the last three steps
+reproduced the SDP file (sha256 in `d32/k5_D32_n45_hp.dat-s.sha256`) and the certificate byte for byte, in 22 min at
+1.3 GB (`d32/k64/reround_release.log`). The symmetry-adapted bases in `sdpa5.py` come from a floating-point SVD
+(numpy), so on another machine the SDP file can differ in its last digits; the stored solution may then round to a
+different certificate, or fail to round. Neither affects the proof: the Lean files are generated from the stored
+certificate, and the Lean kernel checks it.
 
-The 170 modules reachable from the build roots `Kissing5.Statement`, `Kissing5.Solution` and
-`Kissing5.Axioms`, each compiled one at a time (`lean/scripts/build_test.sh`, `lean -j1`) from a fresh copy of
-`lean/` after `regen.sh` and `lake exe cache get`, on Linux x86_64 (`verification/build_test5.tsv`). Wall time
-includes loading Mathlib for each module. Memory in GiB ($`2^{30}`$ bytes).
+Version 1's certificate: see `numerics/kissing5/README.md`.
 
-Total 3.4 h; largest peak 8.60 GiB (`ThomsonGen.M2`).
+## Clean build (bound 44)
 
-<details><summary>Per-module table</summary>
+The modules reachable from `Kissing5.Solution44`, each compiled one at a time (`lean/scripts/build_test.sh`, `lean -j1`) from a fresh copy of `lean/` after `regen.sh` and `lake exe cache get`, on Linux x86_64 (`verification44/build_test44.tsv`; per-module table there). Wall time includes loading Mathlib for each module. Memory in GiB ($`2^{30}`$ bytes).
 
-| module | wall (s) | peak RSS (GiB) |
-|---|---:|---:|
-| `Kissing5.Statement` | 269 | 6.38 |
-| `ThomsonGen.Preamble` | 37 | 6.50 |
-| `ThomsonGen.ThreePoint` | 33 | 6.54 |
-| `ThomsonGen.Kron` | 21 | 6.50 |
-| `ThomsonGen.Cert1` | 17 | 6.49 |
-| `ThomsonGen.Cert3` | 27 | 6.52 |
-| `ThomsonGen.Case1Stat` | 16 | 6.46 |
-| `ThomsonGen.M2` | 70 | 8.60 |
-| `ThomsonGen.CertF` | 22 | 6.48 |
-| `Kissing.Bound` | 15 | 6.46 |
-| `Kissing.CertK` | 19 | 6.49 |
-| `Kissing5.Kernel` | 29 | 6.60 |
-| `Kissing8.Kernel` | 18 | 6.47 |
-| `Kissing5.Addition3` | 32 | 6.57 |
-| `Kissing5.Addition3_7` | 30 | 6.56 |
-| `Kissing5.Addition3_8` | 30 | 6.61 |
-| `Kissing5.Addition4` | 33 | 6.57 |
-| `Kissing5.Addition4_7` | 26 | 6.57 |
-| `Kissing5.Addition4_8` | 32 | 6.61 |
-| `Kissing5.Psd` | 15 | 6.46 |
-| `Kissing5.Positivity` | 20 | 6.48 |
-| `Kissing5.Bound` | 17 | 6.47 |
-| `Kissing5.CertK` | 17 | 6.50 |
-| `Kissing5.Chunk` | 15 | 6.47 |
-| `Kissing5.Cert.Data` | 49 | 6.65 |
-| `Kissing5.Cert.ChkF0` | 37 | 6.92 |
-| `Kissing5.Cert.ChkF1` | 33 | 6.82 |
-| `Kissing5.Cert.ChkF2` | 34 | 6.72 |
-| `Kissing5.Cert.ChkF3` | 36 | 6.68 |
-| `Kissing5.Cert.ChkF4` | 32 | 6.61 |
-| `Kissing5.Cert.ChkF5` | 31 | 6.58 |
-| `Kissing5.Cert.ChkF6` | 33 | 6.55 |
-| `Kissing5.Cert.ChkF7` | 30 | 6.52 |
-| `Kissing5.Cert.ChkF8` | 30 | 6.50 |
-| `Kissing5.Cert.ChkS0_0` | 64 | 7.23 |
-| `Kissing5.Cert.ChkS0_1` | 96 | 7.30 |
-| `Kissing5.Cert.ChkS0_2` | 101 | 7.30 |
-| `Kissing5.Cert.ChkS0_3` | 86 | 7.33 |
-| `Kissing5.Cert.ChkS0_4` | 88 | 7.34 |
-| `Kissing5.Cert.ChkS0_5` | 90 | 7.40 |
-| `Kissing5.Cert.ChkS0_6` | 83 | 7.40 |
-| `Kissing5.Cert.ChkS0_7` | 93 | 7.43 |
-| `Kissing5.Cert.ChkS0_8` | 91 | 7.46 |
-| `Kissing5.Cert.ChkS0_9` | 93 | 7.48 |
-| `Kissing5.Cert.ChkS0_10` | 89 | 7.50 |
-| `Kissing5.Cert.ChkS0_11` | 92 | 7.53 |
-| `Kissing5.Cert.ChkS0_12` | 104 | 7.59 |
-| `Kissing5.Cert.ChkS0_13` | 105 | 7.58 |
-| `Kissing5.Cert.ChkS0_14` | 103 | 7.66 |
-| `Kissing5.Cert.ChkS0_15` | 102 | 7.65 |
-| `Kissing5.Cert.ChkS0_16` | 113 | 7.69 |
-| `Kissing5.Cert.ChkS0_17` | 110 | 7.71 |
-| `Kissing5.Cert.ChkS0_18` | 114 | 7.73 |
-| `Kissing5.Cert.ChkS0_19` | 105 | 7.77 |
-| `Kissing5.Cert.ChkS0_20` | 117 | 7.79 |
-| `Kissing5.Cert.ChkS0_21` | 129 | 7.84 |
-| `Kissing5.Cert.ChkS0_22` | 117 | 7.85 |
-| `Kissing5.Cert.ChkS0_23` | 128 | 7.88 |
-| `Kissing5.Cert.ChkS0_24` | 126 | 7.90 |
-| `Kissing5.Cert.ChkS0_25` | 132 | 7.93 |
-| `Kissing5.Cert.ChkS0_26` | 135 | 7.94 |
-| `Kissing5.Cert.ChkS0_27` | 139 | 7.97 |
-| `Kissing5.Cert.ChkS0_28` | 151 | 8.02 |
-| `Kissing5.Cert.ChkS0_29` | 151 | 8.04 |
-| `Kissing5.Cert.ChkS0_30` | 154 | 8.06 |
-| `Kissing5.Cert.ChkS0_31` | 149 | 8.08 |
-| `Kissing5.Cert.ChkS0_32` | 166 | 8.10 |
-| `Kissing5.Cert.ChkS0_33` | 166 | 8.14 |
-| `Kissing5.Cert.ChkS0_34` | 168 | 8.17 |
-| `Kissing5.Cert.ChkS0_35` | 174 | 8.19 |
-| `Kissing5.Cert.ChkS0_36` | 174 | 8.21 |
-| `Kissing5.Cert.ChkS0_37` | 177 | 8.25 |
-| `Kissing5.Cert.ChkS0_38` | 190 | 8.26 |
-| `Kissing5.Cert.ChkS0_39` | 199 | 8.30 |
-| `Kissing5.Cert.ChkS0_40` | 204 | 8.31 |
-| `Kissing5.Cert.ChkS0_41` | 80 | 7.16 |
-| `Kissing5.Cert.ChkS0` | 34 | 6.51 |
-| `Kissing5.Cert.ChkS1_0` | 54 | 6.98 |
-| `Kissing5.Cert.ChkS1_1` | 74 | 7.04 |
-| `Kissing5.Cert.ChkS1_2` | 66 | 7.08 |
-| `Kissing5.Cert.ChkS1_3` | 64 | 7.10 |
-| `Kissing5.Cert.ChkS1_4` | 67 | 7.13 |
-| `Kissing5.Cert.ChkS1_5` | 69 | 7.16 |
-| `Kissing5.Cert.ChkS1_6` | 62 | 7.17 |
-| `Kissing5.Cert.ChkS1_7` | 63 | 7.21 |
-| `Kissing5.Cert.ChkS1_8` | 66 | 7.25 |
-| `Kissing5.Cert.ChkS1_9` | 69 | 7.28 |
-| `Kissing5.Cert.ChkS1_10` | 65 | 7.30 |
-| `Kissing5.Cert.ChkS1_11` | 64 | 7.33 |
-| `Kissing5.Cert.ChkS1_12` | 64 | 7.35 |
-| `Kissing5.Cert.ChkS1_13` | 68 | 7.38 |
-| `Kissing5.Cert.ChkS1_14` | 66 | 7.40 |
-| `Kissing5.Cert.ChkS1_15` | 68 | 7.42 |
-| `Kissing5.Cert.ChkS1_16` | 65 | 7.47 |
-| `Kissing5.Cert.ChkS1_17` | 73 | 7.51 |
-| `Kissing5.Cert.ChkS1_18` | 71 | 7.53 |
-| `Kissing5.Cert.ChkS1_19` | 71 | 7.56 |
-| `Kissing5.Cert.ChkS1_20` | 81 | 7.59 |
-| `Kissing5.Cert.ChkS1_21` | 72 | 7.61 |
-| `Kissing5.Cert.ChkS1_22` | 73 | 7.66 |
-| `Kissing5.Cert.ChkS1_23` | 74 | 7.68 |
-| `Kissing5.Cert.ChkS1` | 29 | 6.50 |
-| `Kissing5.Cert.ChkS2_0` | 54 | 7.00 |
-| `Kissing5.Cert.ChkS2_1` | 73 | 7.04 |
-| `Kissing5.Cert.ChkS2_2` | 66 | 7.08 |
-| `Kissing5.Cert.ChkS2_3` | 64 | 7.08 |
-| `Kissing5.Cert.ChkS2_4` | 64 | 7.13 |
-| `Kissing5.Cert.ChkS2_5` | 67 | 7.16 |
-| `Kissing5.Cert.ChkS2_6` | 67 | 7.18 |
-| `Kissing5.Cert.ChkS2_7` | 62 | 7.21 |
-| `Kissing5.Cert.ChkS2_8` | 70 | 7.25 |
-| `Kissing5.Cert.ChkS2_9` | 66 | 7.28 |
-| `Kissing5.Cert.ChkS2_10` | 69 | 7.30 |
-| `Kissing5.Cert.ChkS2_11` | 64 | 7.32 |
-| `Kissing5.Cert.ChkS2_12` | 63 | 7.35 |
-| `Kissing5.Cert.ChkS2_13` | 68 | 7.40 |
-| `Kissing5.Cert.ChkS2_14` | 68 | 7.42 |
-| `Kissing5.Cert.ChkS2_15` | 68 | 7.43 |
-| `Kissing5.Cert.ChkS2_16` | 67 | 7.46 |
-| `Kissing5.Cert.ChkS2_17` | 72 | 7.49 |
-| `Kissing5.Cert.ChkS2_18` | 68 | 7.53 |
-| `Kissing5.Cert.ChkS2_19` | 72 | 7.56 |
-| `Kissing5.Cert.ChkS2_20` | 70 | 7.59 |
-| `Kissing5.Cert.ChkS2_21` | 70 | 7.62 |
-| `Kissing5.Cert.ChkS2_22` | 69 | 7.66 |
-| `Kissing5.Cert.ChkS2_23` | 76 | 7.68 |
-| `Kissing5.Cert.ChkS2` | 30 | 6.50 |
-| `Kissing5.Cert.ChkS3_0` | 58 | 6.98 |
-| `Kissing5.Cert.ChkS3_1` | 74 | 7.05 |
-| `Kissing5.Cert.ChkS3_2` | 68 | 7.08 |
-| `Kissing5.Cert.ChkS3_3` | 63 | 7.08 |
-| `Kissing5.Cert.ChkS3_4` | 64 | 7.13 |
-| `Kissing5.Cert.ChkS3_5` | 63 | 7.16 |
-| `Kissing5.Cert.ChkS3_6` | 65 | 7.18 |
-| `Kissing5.Cert.ChkS3_7` | 66 | 7.21 |
-| `Kissing5.Cert.ChkS3_8` | 68 | 7.26 |
-| `Kissing5.Cert.ChkS3_9` | 62 | 7.29 |
-| `Kissing5.Cert.ChkS3_10` | 70 | 7.31 |
-| `Kissing5.Cert.ChkS3_11` | 69 | 7.33 |
-| `Kissing5.Cert.ChkS3_12` | 63 | 7.35 |
-| `Kissing5.Cert.ChkS3_13` | 71 | 7.39 |
-| `Kissing5.Cert.ChkS3_14` | 72 | 7.40 |
-| `Kissing5.Cert.ChkS3_15` | 64 | 7.44 |
-| `Kissing5.Cert.ChkS3_16` | 63 | 7.47 |
-| `Kissing5.Cert.ChkS3_17` | 70 | 7.51 |
-| `Kissing5.Cert.ChkS3_18` | 69 | 7.53 |
-| `Kissing5.Cert.ChkS3_19` | 68 | 7.56 |
-| `Kissing5.Cert.ChkS3_20` | 77 | 7.60 |
-| `Kissing5.Cert.ChkS3_21` | 67 | 7.62 |
-| `Kissing5.Cert.ChkS3_22` | 72 | 7.66 |
-| `Kissing5.Cert.ChkS3_23` | 73 | 7.68 |
-| `Kissing5.Cert.ChkS3` | 30 | 6.50 |
-| `Kissing5.Cert.ChkS4_0` | 60 | 6.92 |
-| `Kissing5.Cert.ChkS4_1` | 63 | 6.97 |
-| `Kissing5.Cert.ChkS4_2` | 65 | 6.99 |
-| `Kissing5.Cert.ChkS4_3` | 59 | 7.04 |
-| `Kissing5.Cert.ChkS4_4` | 64 | 7.12 |
-| `Kissing5.Cert.ChkS4_5` | 65 | 7.14 |
-| `Kissing5.Cert.ChkS4_6` | 70 | 7.19 |
-| `Kissing5.Cert.ChkS4_7` | 69 | 7.25 |
-| `Kissing5.Cert.ChkS4_8` | 72 | 7.29 |
-| `Kissing5.Cert.ChkS4_9` | 80 | 7.32 |
-| `Kissing5.Cert.ChkS4_10` | 46 | 6.95 |
-| `Kissing5.Cert.ChkS4` | 26 | 6.50 |
-| `Kissing5.Cert.ChkId` | 14 | 6.49 |
-| `Kissing5.Cert.OkF` | 14 | 6.51 |
-| `Kissing5.Cert.Check` | 15 | 6.49 |
-| `Kissing5.Forty` | 21 | 6.67 |
-| `Kissing5.Solution` | 18 | 6.51 |
-| `Kissing5.Axioms` | 15 | 6.46 |
+502 modules, total 8.7 h; largest peak 8.54 GiB (`ThomsonGen.M2`).
 
-</details>
+| modules | count | wall (h) | largest peak (GiB) |
+|---|---:|---:|---:|
+| `ThomsonGen.*` (regenerated upstream modules) | 8 | 0.13 | 8.54 |
+| other modules (`Kissing5.*`, `Kissing.*`, `Kissing8.Kernel`) | 22 | 0.11 | 6.87 |
+| `Kissing5.Cert44.S*.P*`, `S*.Q*` (row chunks, core Lean only) | 448 | 6.96 | 2.21 |
+| `Kissing5.Cert44.S*.Sum` | 5 | 1.31 | 1.17 |
+| `Kissing5.Cert44.Data` | 1 | 0.04 | 6.72 |
+| `Kissing5.Cert44.ChkF*` | 17 | 0.15 | 7.58 |
+| `Kissing5.Cert44.Check` | 1 | 0.01 | 8.37 |
+
+### Second copy
+
+The same closure plus `Kissing5.Statement44` and `Kissing5.Axioms44`, each built with `lake build <module>` one at a time in the copy used for Comparator and the second kernel (`verification44/prebuild44.tsv`).
+
+504 modules, total 9.1 h; largest peak 8.62 GiB (`ThomsonGen.M2`).
+
+| modules | count | wall (h) | largest peak (GiB) |
+|---|---:|---:|---:|
+| other modules (`Kissing5.*`, `Kissing.*`, `Kissing8.Kernel`) | 24 | 0.27 | 6.87 |
+| `ThomsonGen.*` (regenerated upstream modules) | 8 | 0.13 | 8.62 |
+| `Kissing5.Cert44.S*.P*`, `S*.Q*` (row chunks, core Lean only) | 448 | 7.14 | 2.21 |
+| `Kissing5.Cert44.S*.Sum` | 5 | 1.20 | 2.97 |
+| `Kissing5.Cert44.Data` | 1 | 0.06 | 6.73 |
+| `Kissing5.Cert44.ChkF*` | 17 | 0.25 | 8.11 |
+| `Kissing5.Cert44.Check` | 1 | 0.01 | 8.38 |
 
 ## Upstream code and related work
 
@@ -406,7 +365,7 @@ Total 3.4 h; largest peak 8.60 GiB (`ThomsonGen.M2`).
     regenerates the upstream-derived `ThomsonGen/` modules, and checks the eight that are imported against
     `lean/ThomsonGen/scripts/generated.sha256`.
   - Declarations adapted from it name their upstream source in a comment after the imports.
-    `lean/ThomsonGen/scripts/scan_upstream.py` checks this (`verification/scan_upstream.txt`).
+    `lean/ThomsonGen/scripts/scan_upstream.py` checks this (`verification44/scan_upstream.txt`).
   - Upstream proves Bachoc–Vallentin positivity on $`S^2`$; the $`S^4`$ version here is new code following the same
     plan.
 - **Our own tools.** The splitter `split.py`, the scanner, `lean/gen/cert3_util.py`, `numerics/kissing3/polyk.py` and
@@ -415,10 +374,24 @@ Total 3.4 h; largest peak 8.60 GiB (`ThomsonGen.M2`).
   - C. Bachoc and F. Vallentin, *New upper bounds for kissing numbers from semidefinite programming*, J. Amer. Math.
     Soc. 21 (2008), 909–924: the three-point method and the bound $`\kappa(5) \le 45`$.
   - H. D. Mittelmann and F. Vallentin, *High-accuracy semidefinite programming bounds for kissing numbers*,
-    Experiment. Math. 19 (2010): $`\kappa(5) \le 44`$, from a high-precision floating-point computation.
+    Experiment. Math. 19 (2010), 175–179: $`\kappa(5) \le 44`$, from a high-precision floating-point computation.
+  - F. C. Machado and F. M. de Oliveira Filho, *Improving the semidefinite programming bound for the kissing number by
+    exploiting polynomial symmetry*, Experiment. Math. 27 (2018): the three-point bound with the symmetry reduction
+    used here; 44.981 in dimension 5 at the degree used here.
   - A. M. Odlyzko and N. J. A. Sloane, *New bounds on the number of unit spheres that can touch a unit sphere in n
     dimensions*, J. Combin. Theory Ser. A 26 (1979): the linear programming bound 46.
-- **Related formal and exact work.** Found on 2026-10-02 and 2026-11-11:
+  - T. S. Tomar, *The kissing numbers in dimensions five, six and seven are at most 43, 76 and 132*, preprint,
+    Zenodo [10.5281/zenodo.23638108](https://doi.org/10.5281/zenodo.23638108) (version 1, 2026-10-27, for dimension
+    5; version 3, 2026-11-12): $`\kappa(5) \le 43`$ from an exact rational solution of the second level of the
+    Lasserre hierarchy of de Laat, Leijenhorst and de Muinck Keizer, checked with their verification program. Its Lean
+    theorems (§9) are conditional on a hypothesis `ZonalPSD`, the positivity of the zonal kernels built from the
+    zonal-polynomial files; the paper states that the correctness of these files is not formalised, and checks the
+    hypothesis numerically. One version decides the finite checks by compiled code (`native_decide`); in the other,
+    the Lean kernel does every check and the theorems depend only on the standard axioms, with the hypothesis.
+  - SDPA-GMP: M. Nakata, *A numerical evaluation of highly accurate multiple-precision arithmetic version of
+    semidefinite programming solver: SDPA-GMP, -QD and -DD*, IEEE CACSD 2010.
+- **Related formal and exact work.** Found on 2026-10-02, 2026-11-11 and 2026-11-25 (Tomar's preprint above was
+  pointed out to us on 2026-11-25):
   - lattice kissing numbers in Lean (TauCetiProject/TauCeti);
   - asymptotic bounds in Lean (Vilin97/lean-pool);
   - an exact rational three-point certificate for dimension 11, checked in Julia and Python
@@ -427,15 +400,13 @@ Total 3.4 h; largest peak 8.60 GiB (`ThomsonGen.M2`).
     [kissing-number-4](https://github.com/alejandrozarco/kissing-number-4) and
     [kissing-number-8](https://github.com/alejandrozarco/kissing-number-8).
 
-  *Corrected 2026-11-25.* This paragraph first said that we had found no formal proof of an upper bound in
-  dimension 5 and no exact certificate for 45 or 44. Both statements were wrong:
-  - Bachoc and Vallentin (2008) checked their solution for 45 in rational arithmetic.
-  - T. S. Tomar, *The kissing numbers in dimensions five, six and seven are at most 43, 76 and 132*, preprint, Zenodo
-    [10.5281/zenodo.23638108](https://doi.org/10.5281/zenodo.23638108) (first version 2026-10-27), proves
-    $`\kappa(5) \le 43`$ with an exact certificate for the Lasserre hierarchy. Its Lean proofs assume the positivity
-    of zonal kernels built from zonal-polynomial files (the paper's hypothesis `ZonalPSD`).
-
-  Please tell us of anything else we missed.
+  The formal proof of an upper bound in dimension 5 that we know of besides this one is Tomar's (above), for 43,
+  conditional on `ZonalPSD`. Exact checks of upper bounds exist: Bachoc and Vallentin checked their solution for 45
+  in rational arithmetic; Machado and de Oliveira Filho report that their new bounds were verified rigorously, by
+  rational rounding and interval arithmetic (it is not stated whether this includes dimension 5, and their solution
+  files were not reachable on 2026-11-06); and Tomar's exact certificate proves 43. We did not find another published
+  exact three-point certificate for 44, or a Lean proof of 44 or 43 without a positivity hypothesis; please tell us
+  if one exists.
 
 ## Licence
 

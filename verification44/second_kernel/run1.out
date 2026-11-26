@@ -1,0 +1,21 @@
+== lean4export Kissing5.Solution44 -- Kissing5.K44.encard_le_fortyFour_of_isKissing Kissing5.K44.kissingNumber_five_le_fortyFour
+  30321016 1857960061 <out>/export.ndjson
+c64f37e6e5a4e3fb31e29411507749fd51f75471f2f2a3565f8bf808e635b519 export.ndjson
+
+== nanoda on the export (expected: only the permitted axioms ["propext","Quot.sound","Classical.choice"]; "Checked N declarations with no errors")
+theorem Kissing5.K44.encard_le_fortyFour_of_isKissing (S : Set (Kissing5.K44.E (OfNat.ofNat 5)))
+  (hS : Kissing5.K44.IsKissing S) :
+  LE.le (Set.encard S) (OfNat.ofNat 44) :=
+  _
+
+theorem Kissing5.K44.kissingNumber_five_le_fortyFour :
+  LE.le (Kissing5.K44.kissingNumber (OfNat.ofNat 5)) (OfNat.ofNat 44) :=
+  _
+
+axiom propext {a b : Prop} : Iff a b → Eq a b
+
+axiom Quot.sound.{u} {α : Sort u} {r : α → α → Prop} {a b : α} : r a b → Eq (Quot.mk r a) (Quot.mk r b)
+
+axiom Classical.choice.{u} {α : Sort u} : Nonempty α → α
+
+Checked 45712 declarations with no errors

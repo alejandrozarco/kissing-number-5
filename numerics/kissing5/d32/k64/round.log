@@ -1,0 +1,38 @@
+pid 50070 2026-11-21 02:21:26 cmd: python3 d32/round_hp.py sdpa/k5_D32_n45_hp.dat-s sdpa/d32_keep/hp072.out d32/k64/cert.json 64 1/33554432
+[    12.0s] sdpa/d32_keep/hp072.out: D=32 n=45, solution e = 6.97593847829e-8, claimed E = 1/33554432 (2.98023e-08), KBITS=64
+[    13.9s] target P: 2721 monomials, degree 32
+[    75.0s] expanded the reduced blocks (mpmath)
+[    81.2s] rounded Gram      1: size 969
+[    86.5s] rounded Gram  1/2-u: size 816
+[    92.2s] rounded Gram  1/2-v: size 816
+[    97.8s] rounded Gram  1/2-t: size 816
+[   101.4s] rounded Gram   detG: size 680
+[   104.9s] residual: 6539 monomials, max |non-constant coef| 1.160e-11; constant 4.036067e-11 (dropped margin (e - E)/C(n,2) = 4.036067e-11)
+[   150.5s] identity P == sum_r g_r z^T B_r z holds exactly
+[   150.5s] F0  size  17: positive definite, min pivot 2.45e-13
+[   150.5s] F1  size  16: positive definite, min pivot 4.41e-09
+[   150.5s] F2  size  15: positive definite, min pivot 1.73e-09
+[   150.5s] F3  size  14: positive definite, min pivot 5.03e-10
+[   150.5s] F4  size  13: positive definite, min pivot 1.33e-09
+[   150.5s] F5  size  12: positive definite, min pivot 4.92e-09
+[   150.5s] F6  size  11: positive definite, min pivot 1.3e-11
+[   150.5s] F7  size  10: positive definite, min pivot 9.14e-11
+[   150.5s] F8  size   9: positive definite, min pivot 4.58e-11
+[   150.6s] F9  size   8: positive definite, min pivot 2.61e-11
+[   150.6s] F10 size   7: positive definite, min pivot 7.06e-14
+[   150.6s] F11 size   6: positive definite, min pivot 5.82e-14
+[   150.6s] F12 size   5: positive definite, min pivot 2.93e-14
+[   150.6s] F13 size   4: positive definite, min pivot 3.34e-14
+[   150.6s] F14 size   3: positive definite, min pivot 5.66e-14
+[   150.6s] F15 size   2: positive definite, min pivot 2.83e-14
+[   150.6s] F16 size   1: positive definite, min pivot 3.72e-14
+[   723.9s] B[     1] size  969: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  1127.2s] B[ 1/2-u] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  1619.2s] B[ 1/2-v] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+2026-11-21 02:51:36 [load guard] pause (load 8.3)
+2026-11-21 02:51:51 [load guard] resume (load 7.5)
+[  2061.4s] B[ 1/2-t] size  816: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  2316.7s] B[  detG] size  680: positive definite: W B W^T strictly diagonally dominant, max off/diag ratio 0
+[  2316.7s] ALL CHECKS PASSED
+[  2325.5s] wrote d32/k64/cert.json (151747 KiB)
+rc 0 peak_rss_kB 984896 2026-11-21 03:00:26

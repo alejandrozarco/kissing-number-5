@@ -1,0 +1,19 @@
+pid 15634 2026-11-21 01:47:11 cmd: python3 check_big_k5.py cert_D16.json
+[     0.0s] read cert_D16.json
+[     0.1s] parsed: n = 46, e = 1/32, F sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+(3) e > 0; multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (the cut); their product; detG (GramOK). Used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+[     0.2s] (1a) left side: 449 monomials, total degree 16
+[     0.3s] (1a) right side: 449 monomials
+[     0.3s] (1a) identity holds exactly as polynomials (every coefficient)
+[     0.3s] (1b) point 1: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.4s] (1b) point 2: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.4s] (1b) point 3: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     2.3s] (2) B0:1 size 165: W B W^T certainly strictly diagonally dominant (max off/diag 5.68e-109)
+[     3.2s] (2) B1:1/2-u size 120: W B W^T certainly strictly diagonally dominant (max off/diag 1.85e-108)
+[     4.1s] (2) B2:1/2-v size 120: W B W^T certainly strictly diagonally dominant (max off/diag 2.73e-108)
+[     4.7s] (2) B3:1/2-t size 120: W B W^T certainly strictly diagonally dominant (max off/diag 1.25e-108)
+[     4.9s] (2) B4:detG size 84: W B W^T certainly strictly diagonally dominant (max off/diag 6.58e-109)
+[     4.9s] (2) all blocks symmetric and positive definite
+[    12.4s] (4) float sanity: max of sum_k <F_k, Rk> over 300 random region points = -0.00011603 <= -e/C(n,2) = -3.01932e-05
+CERTIFICATE OK: no 46-point configuration on S^4 with all angles >= 60 degrees, so kappa(5) <= 45
+rc 0 peak_rss_kB 52032 2026-11-21 01:47:25

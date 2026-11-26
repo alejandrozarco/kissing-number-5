@@ -1,0 +1,90 @@
+pid 14114 2026-11-21 01:44:07 cmd: python3 check_big_k5.py d32/val16/cert_hp_D16.json --controls
+[     0.0s] read d32/val16/cert_hp_D16.json
+[     0.3s] parsed: n = 46, e = 1/32, F sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+(3) e > 0; multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (the cut); their product; detG (GramOK). Used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+[     0.5s] (1a) left side: 449 monomials, total degree 16
+[     0.7s] (1a) right side: 449 monomials
+[     0.7s] (1a) identity holds exactly as polynomials (every coefficient)
+[     0.8s] (1b) point 1: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.8s] (1b) point 2: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.9s] (1b) point 3: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+CERTIFICATE REJECTED: (2) B0:1 (size 165): pivot 96 not certainly positive ([+/- 6.65e-11])
+rc 1 peak_rss_kB 50112 2026-11-21 01:44:09
+pid 14613 2026-11-21 01:45:36 cmd: python3 check_big_k5.py d32/val16/cert_hp_D16.json --controls
+[     0.0s] read d32/val16/cert_hp_D16.json
+[     0.3s] parsed: n = 46, e = 1/32, F sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+(3) e > 0; multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (the cut); their product; detG (GramOK). Used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+[     0.4s] (1a) left side: 449 monomials, total degree 16
+[     0.5s] (1a) right side: 449 monomials
+[     0.5s] (1a) identity holds exactly as polynomials (every coefficient)
+[     0.6s] (1b) point 1: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.6s] (1b) point 2: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.7s] (1b) point 3: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     2.4s] (2) B0:1 size 165: W B W^T certainly strictly diagonally dominant (max off/diag 1.03e-79)
+[     3.0s] (2) B1:1/2-u size 120: W B W^T certainly strictly diagonally dominant (max off/diag 6.17e-79)
+[     3.7s] (2) B2:1/2-v size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4.11e-79)
+[     4.5s] (2) B3:1/2-t size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4e-79)
+[     4.8s] (2) B4:detG size 84: W B W^T certainly strictly diagonally dominant (max off/diag 2.66e-80)
+[     4.8s] (2) all blocks symmetric and positive definite
+[    11.6s] (4) float sanity: max of sum_k <F_k, Rk> over 300 random region points = -0.00018783 <= -e/C(n,2) = -3.01932e-05
+CERTIFICATE OK: no 46-point configuration on S^4 with all angles >= 60 degrees, so kappa(5) <= 45
+[    11.6s] controls:
+[    11.7s]   one B entry + 1e-30: (1a) FAILS (expected) -> OK
+[    11.9s]   e doubled: (1a) FAILS (expected) -> OK
+[    12.0s]   B0:1: smallest eigenvalue ~ 3.4926e-36
+[    12.2s]   B0:1 - 101/100 lam I: FAIL (approximate pivot 163 <= 0); expected FAIL -> OK
+[    13.8s]   B0:1 - 99/100 lam I: PASS (W B W^T certainly strictly diagonally dominant (max off/diag 1.42e-78)); expected PASS -> OK
+rc 0 peak_rss_kB 82704 2026-11-21 01:45:51
+pid 14944 2026-11-21 01:46:16 cmd: python3 check_big_k5.py d32/val16/cert_hp_D16.json --controls
+[     0.0s] read d32/val16/cert_hp_D16.json
+[     0.4s] parsed: n = 46, e = 1/32, F sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+(3) e > 0; multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (the cut); their product; detG (GramOK). Used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+[     0.5s] (1a) left side: 449 monomials, total degree 16
+[     0.6s] (1a) right side: 449 monomials
+[     0.6s] (1a) identity holds exactly as polynomials (every coefficient)
+[     0.7s] (1b) point 1: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.8s] (1b) point 2: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.9s] (1b) point 3: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     3.2s] (2) B0:1 size 165: W B W^T certainly strictly diagonally dominant (max off/diag 1.03e-79)
+[     4.2s] (2) B1:1/2-u size 120: W B W^T certainly strictly diagonally dominant (max off/diag 6.17e-79)
+[     5.1s] (2) B2:1/2-v size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4.11e-79)
+[     6.1s] (2) B3:1/2-t size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4e-79)
+[     6.5s] (2) B4:detG size 84: W B W^T certainly strictly diagonally dominant (max off/diag 2.66e-80)
+[     6.5s] (2) all blocks symmetric and positive definite
+[    13.7s] (4) float sanity: max of sum_k <F_k, Rk> over 300 random region points = -0.00018783 <= -e/C(n,2) = -3.01932e-05
+CERTIFICATE OK: no 46-point configuration on S^4 with all angles >= 60 degrees, so kappa(5) <= 45
+[    13.7s] controls:
+[    13.8s]   one B entry + 1e-30: (1a) FAILS (expected) -> OK
+[    13.9s]   e doubled: (1a) FAILS (expected) -> OK
+[    14.0s]   B0:1: smallest eigenvalue ~ 3.4926e-36
+[    14.3s]   B0:1 - 101/100 lam I: FAIL (approximate pivot 163 <= 0); expected FAIL -> OK
+[    15.1s]   B0:1 - 101/100 lam I with the W of B0:1: FAIL (row 82 of W B W^T not certainly diagonally dominant); expected FAIL -> OK
+[    17.4s]   B0:1 - 99/100 lam I: PASS (W B W^T certainly strictly diagonally dominant (max off/diag 1.42e-78)); expected PASS -> OK
+[    18.2s]   B0:1 - 99/100 lam I with the W of B0:1: FAIL (row 82 of W B W^T not certainly diagonally dominant); expected PASS -> CONTROL FAILED
+rc 0 peak_rss_kB 83632 2026-11-21 01:46:35
+pid 15300 2026-11-21 01:46:45 cmd: python3 check_big_k5.py d32/val16/cert_hp_D16.json --controls
+[     0.0s] read d32/val16/cert_hp_D16.json
+[     0.3s] parsed: n = 46, e = 1/32, F sizes [9, 8, 7, 6, 5, 4, 3, 2, 1], SOS [('1', 165), ('1/2-u', 120), ('1/2-v', 120), ('1/2-t', 120), ('detG', 84)]
+(3) e > 0; multipliers >= 0 on {GramOK, u,v,t <= 1/2}: 1; 1+x (x >= -1 from x^2 <= 1); 1/2-x (the cut); their product; detG (GramOK). Used: ['1', '1/2-t', '1/2-u', '1/2-v', 'detG']
+[     0.5s] (1a) left side: 449 monomials, total degree 16
+[     0.7s] (1a) right side: 449 monomials
+[     0.7s] (1a) identity holds exactly as polynomials (every coefficient)
+[     0.8s] (1b) point 1: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.8s] (1b) point 2: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     0.9s] (1b) point 3: matrix-form left side == z^T B z right side == (1a) polynomial, exactly
+[     3.2s] (2) B0:1 size 165: W B W^T certainly strictly diagonally dominant (max off/diag 1.03e-79)
+[     4.0s] (2) B1:1/2-u size 120: W B W^T certainly strictly diagonally dominant (max off/diag 6.17e-79)
+[     5.0s] (2) B2:1/2-v size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4.11e-79)
+[     5.9s] (2) B3:1/2-t size 120: W B W^T certainly strictly diagonally dominant (max off/diag 4e-79)
+[     6.3s] (2) B4:detG size 84: W B W^T certainly strictly diagonally dominant (max off/diag 2.66e-80)
+[     6.3s] (2) all blocks symmetric and positive definite
+[    15.8s] (4) float sanity: max of sum_k <F_k, Rk> over 300 random region points = -0.00018783 <= -e/C(n,2) = -3.01932e-05
+CERTIFICATE OK: no 46-point configuration on S^4 with all angles >= 60 degrees, so kappa(5) <= 45
+[    15.8s] controls:
+[    15.9s]   one B entry + 1e-30: (1a) FAILS (expected) -> OK
+[    16.1s]   e doubled: (1a) FAILS (expected) -> OK
+[    16.2s]   B0:1: smallest eigenvalue ~ 3.4926e-36
+[    16.4s]   B0:1 - 101/100 lam I: FAIL (approximate pivot 163 <= 0); expected FAIL -> OK
+[    17.0s]   B0:1 - 101/100 lam I with the W of B0:1: FAIL (row 82 of W B W^T not certainly diagonally dominant); expected FAIL -> OK
+[    18.9s]   B0:1 - 99/100 lam I: PASS (W B W^T certainly strictly diagonally dominant (max off/diag 1.42e-78)); expected PASS -> OK
+rc 0 peak_rss_kB 83296 2026-11-21 01:47:05

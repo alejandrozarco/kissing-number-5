@@ -39,5 +39,6 @@ inline Python hit Python's default limit of 4300 digits for integer conversion. 
 `lean/scripts/tamper_literal.py`, which lifts the limit.
 
 `run2_negative_control.out` is the rerun of step 3 alone (`NEG_ONLY=1`). Before running, it checks that the export has
-the accepted sha256. This rerun used scripts byte-identical to the published `lean/scripts/second-kernel.sh` and
-`tamper_literal.py`.
+the accepted sha256. This rerun used scripts byte-identical to the `lean/scripts/second-kernel.sh` and `tamper_literal.py`
+published in version 1. In version 2, `tamper_literal.py` reads the export line by line (same output; see
+`verification44/README.md`).

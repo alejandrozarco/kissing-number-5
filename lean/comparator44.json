@@ -1,0 +1,13 @@
+{
+  "challenge_module": "Kissing5.Statement44",
+  "solution_module": "Kissing5.Solution44",
+  "theorem_names": [
+    "Kissing5.K44.encard_le_fortyFour_of_isKissing",
+    "Kissing5.K44.kissingNumber_five_le_fortyFour"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ]
+}
